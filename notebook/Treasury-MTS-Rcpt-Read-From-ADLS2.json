@@ -1,0 +1,438 @@
+{
+	"name": "Treasury-MTS-Rcpt-Read-From-ADLS2",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "synaps01sparkp",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1",
+				"state": {
+					"2425f28d-5cc9-483f-bc54-677f201b2136": {
+						"type": "Synapse.DataFrame",
+						"sync_state": {
+							"table": {
+								"rows": [
+									{
+										"0": "2021-07-31",
+										"1": "null",
+										"2": "47701962",
+										"3": "FY 2020",
+										"4": "null",
+										"5": "null",
+										"6": "null",
+										"7": "1",
+										"8": "1",
+										"9": "1",
+										"10": "10",
+										"11": "S",
+										"12": "SL",
+										"13": "1",
+										"14": "1",
+										"15": "2021",
+										"16": "4",
+										"17": "2021",
+										"18": "3",
+										"19": "07",
+										"20": "31"
+									},
+									{
+										"0": "2021-07-31",
+										"1": "47701962",
+										"2": "47701976",
+										"3": "October",
+										"4": "245520982120.90",
+										"5": "379988361130.71",
+										"6": "134467379009.81",
+										"7": "1",
+										"8": "2",
+										"9": "2",
+										"10": "20",
+										"11": "D",
+										"12": "MTH",
+										"13": "2",
+										"14": "1.1",
+										"15": "2021",
+										"16": "4",
+										"17": "2021",
+										"18": "3",
+										"19": "07",
+										"20": "31"
+									},
+									{
+										"0": "2021-07-31",
+										"1": "47701962",
+										"2": "47701978",
+										"3": "November",
+										"4": "225185415497.28",
+										"5": "434023709954.02",
+										"6": "208838294456.74",
+										"7": "1",
+										"8": "3",
+										"9": "3",
+										"10": "30",
+										"11": "D",
+										"12": "MTH",
+										"13": "2",
+										"14": "1.2",
+										"15": "2021",
+										"16": "4",
+										"17": "2021",
+										"18": "3",
+										"19": "07",
+										"20": "31"
+									},
+									{
+										"0": "2021-07-31",
+										"1": "47701962",
+										"2": "47701984",
+										"3": "December",
+										"4": "335805401484.89",
+										"5": "349091277973.68",
+										"6": "13285876488.79",
+										"7": "1",
+										"8": "4",
+										"9": "4",
+										"10": "40",
+										"11": "D",
+										"12": "MTH",
+										"13": "2",
+										"14": "1.3",
+										"15": "2021",
+										"16": "4",
+										"17": "2021",
+										"18": "3",
+										"19": "07",
+										"20": "31"
+									},
+									{
+										"0": "2021-07-31",
+										"1": "47701962",
+										"2": "47701986",
+										"3": "January",
+										"4": "372287913768.70",
+										"5": "404882870789.11",
+										"6": "32594957020.41",
+										"7": "1",
+										"8": "5",
+										"9": "5",
+										"10": "50",
+										"11": "D",
+										"12": "MTH",
+										"13": "2",
+										"14": "1.4",
+										"15": "2021",
+										"16": "4",
+										"17": "2021",
+										"18": "3",
+										"19": "07",
+										"20": "31"
+									},
+									{
+										"0": "2021-07-31",
+										"1": "47701962",
+										"2": "47701992",
+										"3": "February",
+										"4": "187950539650.05",
+										"5": "423228905223.49",
+										"6": "235278365573.44",
+										"7": "1",
+										"8": "6",
+										"9": "6",
+										"10": "60",
+										"11": "D",
+										"12": "MTH",
+										"13": "2",
+										"14": "1.5",
+										"15": "2021",
+										"16": "4",
+										"17": "2021",
+										"18": "3",
+										"19": "07",
+										"20": "31"
+									},
+									{
+										"0": "2021-07-31",
+										"1": "47701962",
+										"2": "47701994",
+										"3": "March",
+										"4": "236766231531.80",
+										"5": "355754063237.51",
+										"6": "118987831705.71",
+										"7": "1",
+										"8": "7",
+										"9": "7",
+										"10": "70",
+										"11": "D",
+										"12": "MTH",
+										"13": "2",
+										"14": "1.6",
+										"15": "2021",
+										"16": "4",
+										"17": "2021",
+										"18": "3",
+										"19": "07",
+										"20": "31"
+									},
+									{
+										"0": "2021-07-31",
+										"1": "47701962",
+										"2": "47702000",
+										"3": "April",
+										"4": "241863008315.92",
+										"5": "979885188729.59",
+										"6": "738022180413.67",
+										"7": "1",
+										"8": "8",
+										"9": "8",
+										"10": "80",
+										"11": "D",
+										"12": "MTH",
+										"13": "2",
+										"14": "1.7",
+										"15": "2021",
+										"16": "4",
+										"17": "2021",
+										"18": "3",
+										"19": "07",
+										"20": "31"
+									},
+									{
+										"0": "2021-07-31",
+										"1": "47701962",
+										"2": "47702002",
+										"3": "May",
+										"4": "173860556938.57",
+										"5": "572614424728.25",
+										"6": "398753867789.68",
+										"7": "1",
+										"8": "9",
+										"9": "9",
+										"10": "90",
+										"11": "D",
+										"12": "MTH",
+										"13": "2",
+										"14": "1.8",
+										"15": "2021",
+										"16": "4",
+										"17": "2021",
+										"18": "3",
+										"19": "07",
+										"20": "31"
+									},
+									{
+										"0": "2021-07-31",
+										"1": "47701962",
+										"2": "47702008",
+										"3": "June",
+										"4": "240828668352.71",
+										"5": "1104902736844.42",
+										"6": "864074068491.71",
+										"7": "1",
+										"8": "10",
+										"9": "10",
+										"10": "100",
+										"11": "D",
+										"12": "MTH",
+										"13": "2",
+										"14": "1.9",
+										"15": "2021",
+										"16": "4",
+										"17": "2021",
+										"18": "3",
+										"19": "07",
+										"20": "31"
+									}
+								],
+								"schema": [
+									{
+										"key": "0",
+										"name": "Record Date",
+										"type": "string"
+									},
+									{
+										"key": "1",
+										"name": "Parent ID",
+										"type": "string"
+									},
+									{
+										"key": "2",
+										"name": "Classification ID",
+										"type": "string"
+									},
+									{
+										"key": "3",
+										"name": "Classification Description",
+										"type": "string"
+									},
+									{
+										"key": "4",
+										"name": "Current Month Gross Receipts Amount",
+										"type": "string"
+									},
+									{
+										"key": "5",
+										"name": "Current Month Gross Outlay Amount",
+										"type": "string"
+									},
+									{
+										"key": "6",
+										"name": "Current Month Deficit Surplus Amount",
+										"type": "string"
+									},
+									{
+										"key": "7",
+										"name": "Table Number",
+										"type": "string"
+									},
+									{
+										"key": "8",
+										"name": "Source Line Number",
+										"type": "string"
+									},
+									{
+										"key": "9",
+										"name": "Print Order Sequence Number",
+										"type": "string"
+									},
+									{
+										"key": "10",
+										"name": "Line Code Number",
+										"type": "string"
+									},
+									{
+										"key": "11",
+										"name": "Data Type Code",
+										"type": "string"
+									},
+									{
+										"key": "12",
+										"name": "Record Type Code",
+										"type": "string"
+									},
+									{
+										"key": "13",
+										"name": "Sequence Level Number",
+										"type": "string"
+									},
+									{
+										"key": "14",
+										"name": "Sequence Number Code",
+										"type": "string"
+									},
+									{
+										"key": "15",
+										"name": "Fiscal Year",
+										"type": "string"
+									},
+									{
+										"key": "16",
+										"name": "Fiscal Quarter Number",
+										"type": "string"
+									},
+									{
+										"key": "17",
+										"name": "Calendar Year",
+										"type": "string"
+									},
+									{
+										"key": "18",
+										"name": "Calendar Quarter Number",
+										"type": "string"
+									},
+									{
+										"key": "19",
+										"name": "Calendar Month Number",
+										"type": "string"
+									},
+									{
+										"key": "20",
+										"name": "Calendar Day Number",
+										"type": "string"
+									}
+								]
+							},
+							"isSummary": false,
+							"language": "scala"
+						},
+						"persist_state": {
+							"view": {
+								"type": "details",
+								"chartOptions": {
+									"chartType": "bar",
+									"aggregationType": "count",
+									"categoryFieldKeys": [
+										"0"
+									],
+									"seriesFieldKeys": [
+										"0"
+									],
+									"isStacked": false
+								}
+							}
+						}
+					}
+				}
+			},
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/828966ab-879b-4f3d-ac3c-6a83706eb702/resourceGroups/rg-synapse/providers/Microsoft.Synapse/workspaces/synapse01ws/bigDataPools/synaps01sparkp",
+				"name": "synaps01sparkp",
+				"type": "Spark",
+				"endpoint": "https://synapse01ws.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/synaps01sparkp",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "3.1",
+				"nodeCount": 10,
+				"cores": 4,
+				"memory": 28,
+				"extraHeader": null
+			}
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"metadata": {
+					"microsoft": {
+						"language": "python"
+					},
+					"collapsed": false
+				},
+				"source": [
+					"%%pyspark\r\n",
+					"df = spark.read.load('abfss://synapse01fs@synapse01adl.dfs.core.windows.net/raw/Treasury/MTS_RcptOutlyDfctSur_20160731_20210731.csv', format='csv'\r\n",
+					"## If header exists uncomment line below\r\n",
+					", header=True\r\n",
+					")\r\n",
+					"display(df.limit(10))"
+				],
+				"attachments": null,
+				"execution_count": 2
+			}
+		]
+	}
+}

@@ -1,0 +1,63 @@
+{
+	"name": "CopyPipeline_All_Contracts_PrimeTransactions_FY2021",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_7xv",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "synapse01fs/raw/Treasury/inputs/All_Contracts_PrimeTransactions_FY2021.csv"
+					},
+					{
+						"name": "Destination",
+						"value": "dbo.All_Contracts_PrimeTransactions_FY2021"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings",
+							"skipLineCount": 0
+						}
+					},
+					"sink": {
+						"type": "SqlPoolSink",
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_7xv",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DestinationDataset_7xv",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2021-09-09T18:51:25Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

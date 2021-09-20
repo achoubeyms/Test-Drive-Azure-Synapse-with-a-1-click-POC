@@ -1,0 +1,27 @@
+{
+	"name": "AzureBlobFSSourceDatasetEntity",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "synapse01ws-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureBlobFSFile",
+		"typeProperties": {
+			"format": {
+				"type": "TextFormat",
+				"columnDelimiter": ",",
+				"rowDelimiter": "\n",
+				"quoteChar": "\"",
+				"nullValue": "\\N",
+				"encodingName": null,
+				"treatEmptyAsNull": true,
+				"skipLineCount": 100,
+				"firstRowAsHeader": true
+			},
+			"fileName": "All_Contracts_PrimeTransactions_FY2020.csv",
+			"folderPath": "synapse01fs/raw/Treasury/inputs"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

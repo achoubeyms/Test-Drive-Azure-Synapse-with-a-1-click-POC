@@ -1,0 +1,17 @@
+{
+	"name": "DestinationDataset_7xv",
+	"properties": {
+		"annotations": [],
+		"type": "SqlPoolTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "All_Contracts_PrimeTransactions_FY2021"
+		},
+		"sqlPool": {
+			"referenceName": "synapse01sqlp",
+			"type": "SqlPoolReference"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

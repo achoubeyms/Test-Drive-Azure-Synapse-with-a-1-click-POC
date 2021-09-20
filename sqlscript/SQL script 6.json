@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 6",
+	"properties": {
+		"content": {
+			"query": "DROP TABLE [dbo].[DimCustomers]\nGO\n\nSET ANSI_NULLS ON\nGO\nSET QUOTED_IDENTIFIER ON\nGO\n\nCREATE TABLE [dbo].[DimCustomers]\n( \n\t[CustomerSK] [int]  NOT NULL,\n\t[CustomerID] [uniqueidentifier]  NOT NULL,\n\t[LastName] [varchar](50)  NOT NULL,\n\t[FirstName] [varchar](30)  NOT NULL,\n\t[AddressLine1] [varchar](50)  NOT NULL,\n\t[AddressLine2] [varchar](50)  NULL,\n\t[City] [varchar](30)  NOT NULL,\n\t[State] [char](2)  NOT NULL,\n\t[ZipCode] [char](5)  NOT NULL,\n\t[PhoneNumber] [char](10)  NOT NULL,\n\t[RecordStartDate] [date]  NOT NULL,\n\t[RecordEndDate] [date]  NULL,\n\t[ActiveFlag] [bit]  NOT NULL\n)\nWITH\n(\n\tDISTRIBUTION = HASH ( [CustomerSK] ),\n\tCLUSTERED COLUMNSTORE INDEX\n)\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

@@ -1,0 +1,824 @@
+{
+	"name": "SourceDataset_xj4",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Http_Treasury_Data",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": "NAWS_A2E191.csv"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "D36TFL5",
+				"type": "String"
+			},
+			{
+				"name": "D36TFL12",
+				"type": "String"
+			},
+			{
+				"name": "D36TFL18",
+				"type": "String"
+			},
+			{
+				"name": "currstat",
+				"type": "String"
+			},
+			{
+				"name": "PWTYCRD",
+				"type": "String"
+			},
+			{
+				"name": "AGE",
+				"type": "String"
+			},
+			{
+				"name": "ACCOMP",
+				"type": "String"
+			},
+			{
+				"name": "B14CODE",
+				"type": "String"
+			},
+			{
+				"name": "B15CODE",
+				"type": "String"
+			},
+			{
+				"name": "B17CODE",
+				"type": "String"
+			},
+			{
+				"name": "AGE_ENT",
+				"type": "String"
+			},
+			{
+				"name": "D12WG1",
+				"type": "String"
+			},
+			{
+				"name": "D12WG2",
+				"type": "String"
+			},
+			{
+				"name": "D12WG3",
+				"type": "String"
+			},
+			{
+				"name": "D12WG4",
+				"type": "String"
+			},
+			{
+				"name": "BLWAGE",
+				"type": "String"
+			},
+			{
+				"name": "C09WEEKS",
+				"type": "String"
+			},
+			{
+				"name": "CROP",
+				"type": "String"
+			},
+			{
+				"name": "D50MTCOD",
+				"type": "String"
+			},
+			{
+				"name": "D51MTCOD",
+				"type": "String"
+			},
+			{
+				"name": "D38BFMT",
+				"type": "String"
+			},
+			{
+				"name": "Birth_State",
+				"type": "String"
+			},
+			{
+				"name": "AGEFRSTFW",
+				"type": "String"
+			},
+			{
+				"name": "ChildOtherIndg",
+				"type": "String"
+			},
+			{
+				"name": "ChildOtherNOIndg",
+				"type": "String"
+			},
+			{
+				"name": "AdultOtherIndg",
+				"type": "String"
+			},
+			{
+				"name": "AdultOtherNOIndg",
+				"type": "String"
+			},
+			{
+				"name": "CROWDED1",
+				"type": "String"
+			},
+			{
+				"name": "CROWDED2",
+				"type": "String"
+			},
+			{
+				"name": "ABWEEKS",
+				"type": "String"
+			},
+			{
+				"name": "EMPLOYED",
+				"type": "String"
+			},
+			{
+				"name": "D04",
+				"type": "String"
+			},
+			{
+				"name": "D05",
+				"type": "String"
+			},
+			{
+				"name": "D06",
+				"type": "String"
+			},
+			{
+				"name": "D07",
+				"type": "String"
+			},
+			{
+				"name": "D08",
+				"type": "String"
+			},
+			{
+				"name": "D13",
+				"type": "String"
+			},
+			{
+				"name": "D20x",
+				"type": "String"
+			},
+			{
+				"name": "D21ax",
+				"type": "String"
+			},
+			{
+				"name": "D21bx",
+				"type": "String"
+			},
+			{
+				"name": "D21cx",
+				"type": "String"
+			},
+			{
+				"name": "D21dx",
+				"type": "String"
+			},
+			{
+				"name": "D21fx",
+				"type": "String"
+			},
+			{
+				"name": "D22",
+				"type": "String"
+			},
+			{
+				"name": "D23",
+				"type": "String"
+			},
+			{
+				"name": "D26",
+				"type": "String"
+			},
+			{
+				"name": "D27",
+				"type": "String"
+			},
+			{
+				"name": "D28x",
+				"type": "String"
+			},
+			{
+				"name": "D29ax",
+				"type": "String"
+			},
+			{
+				"name": "D29bx",
+				"type": "String"
+			},
+			{
+				"name": "D29cx",
+				"type": "String"
+			},
+			{
+				"name": "D29dx",
+				"type": "String"
+			},
+			{
+				"name": "D29ex",
+				"type": "String"
+			},
+			{
+				"name": "D29fx",
+				"type": "String"
+			},
+			{
+				"name": "D33A",
+				"type": "String"
+			},
+			{
+				"name": "D35x",
+				"type": "String"
+			},
+			{
+				"name": "D37",
+				"type": "String"
+			},
+			{
+				"name": "D38",
+				"type": "String"
+			},
+			{
+				"name": "D39ax",
+				"type": "String"
+			},
+			{
+				"name": "E04",
+				"type": "String"
+			},
+			{
+				"name": "E02",
+				"type": "String"
+			},
+			{
+				"name": "A05",
+				"type": "String"
+			},
+			{
+				"name": "A07",
+				"type": "String"
+			},
+			{
+				"name": "A10",
+				"type": "String"
+			},
+			{
+				"name": "A09",
+				"type": "String"
+			},
+			{
+				"name": "B03ax",
+				"type": "String"
+			},
+			{
+				"name": "B03bx",
+				"type": "String"
+			},
+			{
+				"name": "B03dx",
+				"type": "String"
+			},
+			{
+				"name": "B03ex",
+				"type": "String"
+			},
+			{
+				"name": "B03fx",
+				"type": "String"
+			},
+			{
+				"name": "B03jx",
+				"type": "String"
+			},
+			{
+				"name": "B07",
+				"type": "String"
+			},
+			{
+				"name": "B08",
+				"type": "String"
+			},
+			{
+				"name": "B01",
+				"type": "String"
+			},
+			{
+				"name": "A08",
+				"type": "String"
+			},
+			{
+				"name": "B10",
+				"type": "String"
+			},
+			{
+				"name": "B11",
+				"type": "String"
+			},
+			{
+				"name": "B12",
+				"type": "String"
+			},
+			{
+				"name": "B16",
+				"type": "String"
+			},
+			{
+				"name": "B17",
+				"type": "String"
+			},
+			{
+				"name": "B18",
+				"type": "String"
+			},
+			{
+				"name": "D02",
+				"type": "String"
+			},
+			{
+				"name": "D03",
+				"type": "String"
+			},
+			{
+				"name": "D01",
+				"type": "String"
+			},
+			{
+				"name": "D11",
+				"type": "String"
+			},
+			{
+				"name": "D21ex",
+				"type": "String"
+			},
+			{
+				"name": "D24",
+				"type": "String"
+			},
+			{
+				"name": "D36A1",
+				"type": "String"
+			},
+			{
+				"name": "D36A11",
+				"type": "String"
+			},
+			{
+				"name": "D36A12",
+				"type": "String"
+			},
+			{
+				"name": "D37A",
+				"type": "String"
+			},
+			{
+				"name": "D38A",
+				"type": "String"
+			},
+			{
+				"name": "E01x",
+				"type": "String"
+			},
+			{
+				"name": "A15",
+				"type": "String"
+			},
+			{
+				"name": "A15A",
+				"type": "String"
+			},
+			{
+				"name": "A15B",
+				"type": "String"
+			},
+			{
+				"name": "A15C",
+				"type": "String"
+			},
+			{
+				"name": "A16A",
+				"type": "String"
+			},
+			{
+				"name": "A16B",
+				"type": "String"
+			},
+			{
+				"name": "A16C",
+				"type": "String"
+			},
+			{
+				"name": "A17ax",
+				"type": "String"
+			},
+			{
+				"name": "A17bx",
+				"type": "String"
+			},
+			{
+				"name": "A17cx",
+				"type": "String"
+			},
+			{
+				"name": "A18ax",
+				"type": "String"
+			},
+			{
+				"name": "A18bx",
+				"type": "String"
+			},
+			{
+				"name": "A18cx",
+				"type": "String"
+			},
+			{
+				"name": "B02",
+				"type": "String"
+			},
+			{
+				"name": "B03cx",
+				"type": "String"
+			},
+			{
+				"name": "B03gx",
+				"type": "String"
+			},
+			{
+				"name": "B03hx",
+				"type": "String"
+			},
+			{
+				"name": "B03ix",
+				"type": "String"
+			},
+			{
+				"name": "B04dx",
+				"type": "String"
+			},
+			{
+				"name": "B04fx",
+				"type": "String"
+			},
+			{
+				"name": "B04jx",
+				"type": "String"
+			},
+			{
+				"name": "B04kx",
+				"type": "String"
+			},
+			{
+				"name": "B04lx",
+				"type": "String"
+			},
+			{
+				"name": "B13",
+				"type": "String"
+			},
+			{
+				"name": "A11",
+				"type": "String"
+			},
+			{
+				"name": "C10",
+				"type": "String"
+			},
+			{
+				"name": "D61",
+				"type": "String"
+			},
+			{
+				"name": "D62",
+				"type": "String"
+			},
+			{
+				"name": "D63x",
+				"type": "String"
+			},
+			{
+				"name": "D50",
+				"type": "String"
+			},
+			{
+				"name": "D52",
+				"type": "String"
+			},
+			{
+				"name": "D30",
+				"type": "String"
+			},
+			{
+				"name": "D36A13",
+				"type": "String"
+			},
+			{
+				"name": "D36A14",
+				"type": "String"
+			},
+			{
+				"name": "A20A",
+				"type": "String"
+			},
+			{
+				"name": "A20B",
+				"type": "String"
+			},
+			{
+				"name": "A20C",
+				"type": "String"
+			},
+			{
+				"name": "A21a",
+				"type": "String"
+			},
+			{
+				"name": "A21b",
+				"type": "String"
+			},
+			{
+				"name": "A21cX",
+				"type": "String"
+			},
+			{
+				"name": "A22cx",
+				"type": "String"
+			},
+			{
+				"name": "A23a1",
+				"type": "String"
+			},
+			{
+				"name": "A23a2",
+				"type": "String"
+			},
+			{
+				"name": "A23a3",
+				"type": "String"
+			},
+			{
+				"name": "A23a4",
+				"type": "String"
+			},
+			{
+				"name": "A23a5",
+				"type": "String"
+			},
+			{
+				"name": "A23a6",
+				"type": "String"
+			},
+			{
+				"name": "A23b1",
+				"type": "String"
+			},
+			{
+				"name": "A23b2",
+				"type": "String"
+			},
+			{
+				"name": "A23b3",
+				"type": "String"
+			},
+			{
+				"name": "A23b4",
+				"type": "String"
+			},
+			{
+				"name": "A23b5",
+				"type": "String"
+			},
+			{
+				"name": "A23b6",
+				"type": "String"
+			},
+			{
+				"name": "A23c1",
+				"type": "String"
+			},
+			{
+				"name": "A23c2",
+				"type": "String"
+			},
+			{
+				"name": "A23c3",
+				"type": "String"
+			},
+			{
+				"name": "A23c4",
+				"type": "String"
+			},
+			{
+				"name": "A23c5",
+				"type": "String"
+			},
+			{
+				"name": "A23c6",
+				"type": "String"
+			},
+			{
+				"name": "D34ax",
+				"type": "String"
+			},
+			{
+				"name": "A21c2",
+				"type": "String"
+			},
+			{
+				"name": "A23a7",
+				"type": "String"
+			},
+			{
+				"name": "A24a",
+				"type": "String"
+			},
+			{
+				"name": "A24b",
+				"type": "String"
+			},
+			{
+				"name": "B20a",
+				"type": "String"
+			},
+			{
+				"name": "B20b",
+				"type": "String"
+			},
+			{
+				"name": "B20c",
+				"type": "String"
+			},
+			{
+				"name": "B20d",
+				"type": "String"
+			},
+			{
+				"name": "B20e",
+				"type": "String"
+			},
+			{
+				"name": "B20f",
+				"type": "String"
+			},
+			{
+				"name": "B20z",
+				"type": "String"
+			},
+			{
+				"name": "B21a",
+				"type": "String"
+			},
+			{
+				"name": "B21b",
+				"type": "String"
+			},
+			{
+				"name": "B21c",
+				"type": "String"
+			},
+			{
+				"name": "B21d",
+				"type": "String"
+			},
+			{
+				"name": "B21e",
+				"type": "String"
+			},
+			{
+				"name": "B21f",
+				"type": "String"
+			},
+			{
+				"name": "B21z",
+				"type": "String"
+			},
+			{
+				"name": "B22b",
+				"type": "String"
+			},
+			{
+				"name": "B22c",
+				"type": "String"
+			},
+			{
+				"name": "B22d",
+				"type": "String"
+			},
+			{
+				"name": "B22e",
+				"type": "String"
+			},
+			{
+				"name": "B22f",
+				"type": "String"
+			},
+			{
+				"name": "B22z",
+				"type": "String"
+			},
+			{
+				"name": "B23b",
+				"type": "String"
+			},
+			{
+				"name": "B23c",
+				"type": "String"
+			},
+			{
+				"name": "B23d",
+				"type": "String"
+			},
+			{
+				"name": "B23e",
+				"type": "String"
+			},
+			{
+				"name": "B23f",
+				"type": "String"
+			},
+			{
+				"name": "B23z",
+				"type": "String"
+			},
+			{
+				"name": "B24",
+				"type": "String"
+			},
+			{
+				"name": "B26a",
+				"type": "String"
+			},
+			{
+				"name": "B26b",
+				"type": "String"
+			},
+			{
+				"name": "B27a",
+				"type": "String"
+			},
+			{
+				"name": "B27b",
+				"type": "String"
+			},
+			{
+				"name": "D54a",
+				"type": "String"
+			},
+			{
+				"name": "D54b",
+				"type": "String"
+			},
+			{
+				"name": "D54c",
+				"type": "String"
+			},
+			{
+				"name": "D54f",
+				"type": "String"
+			},
+			{
+				"name": "D21gx",
+				"type": "String"
+			},
+			{
+				"name": "A08month",
+				"type": "String"
+			},
+			{
+				"name": "C12Border",
+				"type": "String"
+			},
+			{
+				"name": "FY",
+				"type": "String"
+			},
+			{
+				"name": "B04AX",
+				"type": "String"
+			},
+			{
+				"name": "B04NX",
+				"type": "String"
+			},
+			{
+				"name": "ANYNMSx",
+				"type": "String"
+			},
+			{
+				"name": "FWID",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

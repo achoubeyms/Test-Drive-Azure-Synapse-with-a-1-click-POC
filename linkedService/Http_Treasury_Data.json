@@ -1,0 +1,18 @@
+{
+	"name": "Http_Treasury_Data",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"description": "Download Public Data From Treasury USA Spending - https://www.usaspending.gov/download_center/custom_award_data ",
+		"annotations": [],
+		"type": "HttpServer",
+		"typeProperties": {
+			"url": "https://www.dol.gov/sites/dolgov/files/ETA/naws/",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

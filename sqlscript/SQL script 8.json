@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 8",
+	"properties": {
+		"content": {
+			"query": "SELECT TOP (100) [SalesSK]\n,[OrderID]\n,[LineNumber]\n,[OrderDateSK]\n,[ShipDateSK]\n,[CustomerSK]\n,[LocationSK]\n,[MovieSK]\n,[DaysToShip]\n,[Quantity]\n,[UnitCost]\n,[ExtendedCost]\n FROM [dbo].[FactSales]",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

@@ -1,0 +1,25 @@
+{
+	"name": "SourceDataset_uux",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "synapse01ws-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "All_Contracts_PrimeTransactions_FY2020.csv",
+				"folderPath": "raw/Treasury/inputs",
+				"fileSystem": "synapse01fs"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}
