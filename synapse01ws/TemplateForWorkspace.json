@@ -1,0 +1,3446 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"workspaceName": {
+			"type": "string",
+			"metadata": "Workspace name",
+			"defaultValue": "synapse01ws"
+		},
+		"AzureBlobStorageMovie_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorageMovie'"
+		},
+		"SyapseDedicatedSqlPool_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'SyapseDedicatedSqlPool'"
+		},
+		"linkedService1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'linkedService1'"
+		},
+		"synapse01ws-WorkspaceDefaultSqlServer_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'synapse01ws-WorkspaceDefaultSqlServer'"
+		},
+		"AzureBlobFSSourceDatasetEntity_properties_typeProperties_fileName": {
+			"type": "string",
+			"defaultValue": "All_Contracts_PrimeTransactions_FY2020.csv"
+		},
+		"AzureBlobFSSourceDatasetEntity_properties_typeProperties_folderPath": {
+			"type": "string",
+			"defaultValue": "synapse01fs/raw/Treasury/inputs"
+		},
+		"Cp_Http_Lego_Files_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://cdn.rebrickable.com/media/downloads/"
+		},
+		"Http_Treasury_Data_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://www.dol.gov/sites/dolgov/files/ETA/naws/"
+		},
+		"linkedService1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://sald2ajnuf53ogg.dfs.core.windows.net"
+		},
+		"synapse01ws-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://synapse01adl.dfs.core.windows.net"
+		}
+	},
+	"variables": {
+		"workspaceId": "[concat('Microsoft.Synapse/workspaces/', parameters('workspaceName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('workspaceName'), '/CopyPipeline_All_Contracts_PrimeTransactions_FY2020')]",
+			"type": "Microsoft.Synapse/workspaces/pipelines",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy_uux",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [
+							{
+								"name": "Source",
+								"value": "synapse01fs/raw/Treasury/inputs/All_Contracts_PrimeTransactions_FY2020.csv"
+							},
+							{
+								"name": "Destination",
+								"value": "dbo.All_Contracts_PrimeTransactions_FY2020"
+							}
+						],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings",
+									"skipLineCount": 0
+								}
+							},
+							"sink": {
+								"type": "SqlPoolSink",
+								"tableOption": "autoCreate"
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "SourceDataset_uux",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DestinationDataset_uux",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2021-09-09T19:11:49Z"
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/datasets/SourceDataset_uux')]",
+				"[concat(variables('workspaceId'), '/datasets/DestinationDataset_uux')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/CopyPipeline_All_Contracts_PrimeTransactions_FY2021')]",
+			"type": "Microsoft.Synapse/workspaces/pipelines",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy_7xv",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [
+							{
+								"name": "Source",
+								"value": "synapse01fs/raw/Treasury/inputs/All_Contracts_PrimeTransactions_FY2021.csv"
+							},
+							{
+								"name": "Destination",
+								"value": "dbo.All_Contracts_PrimeTransactions_FY2021"
+							}
+						],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings",
+									"skipLineCount": 0
+								}
+							},
+							"sink": {
+								"type": "SqlPoolSink",
+								"tableOption": "autoCreate"
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "SourceDataset_7xv",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DestinationDataset_7xv",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2021-09-09T18:51:25Z"
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/datasets/SourceDataset_7xv')]",
+				"[concat(variables('workspaceId'), '/datasets/DestinationDataset_7xv')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/CopyPipeline_From_Http_To_Downlaods')]",
+			"type": "Microsoft.Synapse/workspaces/pipelines",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"description": "Download Public CSV files to Download Directory",
+				"activities": [
+					{
+						"name": "Copy_xj4",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [
+							{
+								"name": "Source",
+								"value": "NAWS_A2E191.csv"
+							},
+							{
+								"name": "Destination",
+								"value": "synapse01fs/raw/Treasury/Downloads/"
+							}
+						],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "HttpReadSettings",
+									"requestMethod": "GET"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings",
+									"skipLineCount": 0
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false
+						},
+						"inputs": [
+							{
+								"referenceName": "SourceDataset_xj4",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DestinationDataset_xj4",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2021-09-18T13:50:52Z"
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/datasets/SourceDataset_xj4')]",
+				"[concat(variables('workspaceId'), '/datasets/DestinationDataset_xj4')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Cp_Http_Lego_To_ADLS')]",
+			"type": "Microsoft.Synapse/workspaces/pipelines",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy_yn4",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [
+							{
+								"name": "Source",
+								"value": "themes.csv.gz"
+							},
+							{
+								"name": "Destination",
+								"value": "synapse01fs/raw/Lego/themes.csv"
+							}
+						],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "HttpReadSettings",
+									"requestMethod": "GET"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings",
+									"skipLineCount": 0
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"enableSkipIncompatibleRow": true,
+							"logSettings": {
+								"enableCopyActivityLog": true,
+								"copyActivityLogSettings": {
+									"logLevel": "Info",
+									"enableReliableLogging": false
+								},
+								"logLocationSettings": {
+									"linkedServiceName": {
+										"referenceName": "synapse01ws-WorkspaceDefaultStorage",
+										"type": "LinkedServiceReference"
+									},
+									"path": "synapse01fs/_rejectedrows"
+								}
+							},
+							"dataIntegrationUnits": 2
+						},
+						"inputs": [
+							{
+								"referenceName": "SourceDataset_yn4",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DestinationDataset_yn4",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2021-09-18T22:40:33Z"
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/datasets/SourceDataset_yn4')]",
+				"[concat(variables('workspaceId'), '/datasets/DestinationDataset_yn4')]",
+				"[concat(variables('workspaceId'), '/linkedServices/synapse01ws-WorkspaceDefaultStorage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/AzureBlobFSSourceDatasetEntity')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "synapse01ws-WorkspaceDefaultStorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureBlobFSFile",
+				"typeProperties": {
+					"format": {
+						"type": "TextFormat",
+						"columnDelimiter": ",",
+						"rowDelimiter": "\n",
+						"quoteChar": "\"",
+						"nullValue": "\\N",
+						"encodingName": null,
+						"treatEmptyAsNull": true,
+						"skipLineCount": 100,
+						"firstRowAsHeader": true
+					},
+					"fileName": "[parameters('AzureBlobFSSourceDatasetEntity_properties_typeProperties_fileName')]",
+					"folderPath": "[parameters('AzureBlobFSSourceDatasetEntity_properties_typeProperties_folderPath')]"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/synapse01ws-WorkspaceDefaultStorage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/DestinationDataset_7xv')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "SqlPoolTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "All_Contracts_PrimeTransactions_FY2021"
+				},
+				"sqlPool": {
+					"referenceName": "synapse01sqlp",
+					"type": "SqlPoolReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/sqlPools/synapse01sqlp')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/DestinationDataset_uux')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "SqlPoolTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "All_Contracts_PrimeTransactions_FY2020"
+				},
+				"sqlPool": {
+					"referenceName": "synapse01sqlp",
+					"type": "SqlPoolReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/sqlPools/synapse01sqlp')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/DestinationDataset_xj4')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "synapse01ws-WorkspaceDefaultStorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "raw/Treasury/Downloads",
+						"fileSystem": "synapse01fs"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/synapse01ws-WorkspaceDefaultStorage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/DestinationDataset_yn4')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "synapse01ws-WorkspaceDefaultStorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "themes.csv",
+						"folderPath": "raw/Lego",
+						"fileSystem": "synapse01fs"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/synapse01ws-WorkspaceDefaultStorage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/ParquetDestinationStore')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "synapse01ws-WorkspaceDefaultStorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/synapse01ws-WorkspaceDefaultStorage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SourceDataset_7xv')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "synapse01ws-WorkspaceDefaultStorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "All_Contracts_PrimeTransactions_FY2020.csv",
+						"folderPath": "raw/Treasury/inputs",
+						"fileSystem": "synapse01fs"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/synapse01ws-WorkspaceDefaultStorage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SourceDataset_uux')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "synapse01ws-WorkspaceDefaultStorage",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "All_Contracts_PrimeTransactions_FY2020.csv",
+						"folderPath": "raw/Treasury/inputs",
+						"fileSystem": "synapse01fs"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/synapse01ws-WorkspaceDefaultStorage')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SourceDataset_xj4')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Http_Treasury_Data",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation",
+						"relativeUrl": "NAWS_A2E191.csv"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "D36TFL5",
+						"type": "String"
+					},
+					{
+						"name": "D36TFL12",
+						"type": "String"
+					},
+					{
+						"name": "D36TFL18",
+						"type": "String"
+					},
+					{
+						"name": "currstat",
+						"type": "String"
+					},
+					{
+						"name": "PWTYCRD",
+						"type": "String"
+					},
+					{
+						"name": "AGE",
+						"type": "String"
+					},
+					{
+						"name": "ACCOMP",
+						"type": "String"
+					},
+					{
+						"name": "B14CODE",
+						"type": "String"
+					},
+					{
+						"name": "B15CODE",
+						"type": "String"
+					},
+					{
+						"name": "B17CODE",
+						"type": "String"
+					},
+					{
+						"name": "AGE_ENT",
+						"type": "String"
+					},
+					{
+						"name": "D12WG1",
+						"type": "String"
+					},
+					{
+						"name": "D12WG2",
+						"type": "String"
+					},
+					{
+						"name": "D12WG3",
+						"type": "String"
+					},
+					{
+						"name": "D12WG4",
+						"type": "String"
+					},
+					{
+						"name": "BLWAGE",
+						"type": "String"
+					},
+					{
+						"name": "C09WEEKS",
+						"type": "String"
+					},
+					{
+						"name": "CROP",
+						"type": "String"
+					},
+					{
+						"name": "D50MTCOD",
+						"type": "String"
+					},
+					{
+						"name": "D51MTCOD",
+						"type": "String"
+					},
+					{
+						"name": "D38BFMT",
+						"type": "String"
+					},
+					{
+						"name": "Birth_State",
+						"type": "String"
+					},
+					{
+						"name": "AGEFRSTFW",
+						"type": "String"
+					},
+					{
+						"name": "ChildOtherIndg",
+						"type": "String"
+					},
+					{
+						"name": "ChildOtherNOIndg",
+						"type": "String"
+					},
+					{
+						"name": "AdultOtherIndg",
+						"type": "String"
+					},
+					{
+						"name": "AdultOtherNOIndg",
+						"type": "String"
+					},
+					{
+						"name": "CROWDED1",
+						"type": "String"
+					},
+					{
+						"name": "CROWDED2",
+						"type": "String"
+					},
+					{
+						"name": "ABWEEKS",
+						"type": "String"
+					},
+					{
+						"name": "EMPLOYED",
+						"type": "String"
+					},
+					{
+						"name": "D04",
+						"type": "String"
+					},
+					{
+						"name": "D05",
+						"type": "String"
+					},
+					{
+						"name": "D06",
+						"type": "String"
+					},
+					{
+						"name": "D07",
+						"type": "String"
+					},
+					{
+						"name": "D08",
+						"type": "String"
+					},
+					{
+						"name": "D13",
+						"type": "String"
+					},
+					{
+						"name": "D20x",
+						"type": "String"
+					},
+					{
+						"name": "D21ax",
+						"type": "String"
+					},
+					{
+						"name": "D21bx",
+						"type": "String"
+					},
+					{
+						"name": "D21cx",
+						"type": "String"
+					},
+					{
+						"name": "D21dx",
+						"type": "String"
+					},
+					{
+						"name": "D21fx",
+						"type": "String"
+					},
+					{
+						"name": "D22",
+						"type": "String"
+					},
+					{
+						"name": "D23",
+						"type": "String"
+					},
+					{
+						"name": "D26",
+						"type": "String"
+					},
+					{
+						"name": "D27",
+						"type": "String"
+					},
+					{
+						"name": "D28x",
+						"type": "String"
+					},
+					{
+						"name": "D29ax",
+						"type": "String"
+					},
+					{
+						"name": "D29bx",
+						"type": "String"
+					},
+					{
+						"name": "D29cx",
+						"type": "String"
+					},
+					{
+						"name": "D29dx",
+						"type": "String"
+					},
+					{
+						"name": "D29ex",
+						"type": "String"
+					},
+					{
+						"name": "D29fx",
+						"type": "String"
+					},
+					{
+						"name": "D33A",
+						"type": "String"
+					},
+					{
+						"name": "D35x",
+						"type": "String"
+					},
+					{
+						"name": "D37",
+						"type": "String"
+					},
+					{
+						"name": "D38",
+						"type": "String"
+					},
+					{
+						"name": "D39ax",
+						"type": "String"
+					},
+					{
+						"name": "E04",
+						"type": "String"
+					},
+					{
+						"name": "E02",
+						"type": "String"
+					},
+					{
+						"name": "A05",
+						"type": "String"
+					},
+					{
+						"name": "A07",
+						"type": "String"
+					},
+					{
+						"name": "A10",
+						"type": "String"
+					},
+					{
+						"name": "A09",
+						"type": "String"
+					},
+					{
+						"name": "B03ax",
+						"type": "String"
+					},
+					{
+						"name": "B03bx",
+						"type": "String"
+					},
+					{
+						"name": "B03dx",
+						"type": "String"
+					},
+					{
+						"name": "B03ex",
+						"type": "String"
+					},
+					{
+						"name": "B03fx",
+						"type": "String"
+					},
+					{
+						"name": "B03jx",
+						"type": "String"
+					},
+					{
+						"name": "B07",
+						"type": "String"
+					},
+					{
+						"name": "B08",
+						"type": "String"
+					},
+					{
+						"name": "B01",
+						"type": "String"
+					},
+					{
+						"name": "A08",
+						"type": "String"
+					},
+					{
+						"name": "B10",
+						"type": "String"
+					},
+					{
+						"name": "B11",
+						"type": "String"
+					},
+					{
+						"name": "B12",
+						"type": "String"
+					},
+					{
+						"name": "B16",
+						"type": "String"
+					},
+					{
+						"name": "B17",
+						"type": "String"
+					},
+					{
+						"name": "B18",
+						"type": "String"
+					},
+					{
+						"name": "D02",
+						"type": "String"
+					},
+					{
+						"name": "D03",
+						"type": "String"
+					},
+					{
+						"name": "D01",
+						"type": "String"
+					},
+					{
+						"name": "D11",
+						"type": "String"
+					},
+					{
+						"name": "D21ex",
+						"type": "String"
+					},
+					{
+						"name": "D24",
+						"type": "String"
+					},
+					{
+						"name": "D36A1",
+						"type": "String"
+					},
+					{
+						"name": "D36A11",
+						"type": "String"
+					},
+					{
+						"name": "D36A12",
+						"type": "String"
+					},
+					{
+						"name": "D37A",
+						"type": "String"
+					},
+					{
+						"name": "D38A",
+						"type": "String"
+					},
+					{
+						"name": "E01x",
+						"type": "String"
+					},
+					{
+						"name": "A15",
+						"type": "String"
+					},
+					{
+						"name": "A15A",
+						"type": "String"
+					},
+					{
+						"name": "A15B",
+						"type": "String"
+					},
+					{
+						"name": "A15C",
+						"type": "String"
+					},
+					{
+						"name": "A16A",
+						"type": "String"
+					},
+					{
+						"name": "A16B",
+						"type": "String"
+					},
+					{
+						"name": "A16C",
+						"type": "String"
+					},
+					{
+						"name": "A17ax",
+						"type": "String"
+					},
+					{
+						"name": "A17bx",
+						"type": "String"
+					},
+					{
+						"name": "A17cx",
+						"type": "String"
+					},
+					{
+						"name": "A18ax",
+						"type": "String"
+					},
+					{
+						"name": "A18bx",
+						"type": "String"
+					},
+					{
+						"name": "A18cx",
+						"type": "String"
+					},
+					{
+						"name": "B02",
+						"type": "String"
+					},
+					{
+						"name": "B03cx",
+						"type": "String"
+					},
+					{
+						"name": "B03gx",
+						"type": "String"
+					},
+					{
+						"name": "B03hx",
+						"type": "String"
+					},
+					{
+						"name": "B03ix",
+						"type": "String"
+					},
+					{
+						"name": "B04dx",
+						"type": "String"
+					},
+					{
+						"name": "B04fx",
+						"type": "String"
+					},
+					{
+						"name": "B04jx",
+						"type": "String"
+					},
+					{
+						"name": "B04kx",
+						"type": "String"
+					},
+					{
+						"name": "B04lx",
+						"type": "String"
+					},
+					{
+						"name": "B13",
+						"type": "String"
+					},
+					{
+						"name": "A11",
+						"type": "String"
+					},
+					{
+						"name": "C10",
+						"type": "String"
+					},
+					{
+						"name": "D61",
+						"type": "String"
+					},
+					{
+						"name": "D62",
+						"type": "String"
+					},
+					{
+						"name": "D63x",
+						"type": "String"
+					},
+					{
+						"name": "D50",
+						"type": "String"
+					},
+					{
+						"name": "D52",
+						"type": "String"
+					},
+					{
+						"name": "D30",
+						"type": "String"
+					},
+					{
+						"name": "D36A13",
+						"type": "String"
+					},
+					{
+						"name": "D36A14",
+						"type": "String"
+					},
+					{
+						"name": "A20A",
+						"type": "String"
+					},
+					{
+						"name": "A20B",
+						"type": "String"
+					},
+					{
+						"name": "A20C",
+						"type": "String"
+					},
+					{
+						"name": "A21a",
+						"type": "String"
+					},
+					{
+						"name": "A21b",
+						"type": "String"
+					},
+					{
+						"name": "A21cX",
+						"type": "String"
+					},
+					{
+						"name": "A22cx",
+						"type": "String"
+					},
+					{
+						"name": "A23a1",
+						"type": "String"
+					},
+					{
+						"name": "A23a2",
+						"type": "String"
+					},
+					{
+						"name": "A23a3",
+						"type": "String"
+					},
+					{
+						"name": "A23a4",
+						"type": "String"
+					},
+					{
+						"name": "A23a5",
+						"type": "String"
+					},
+					{
+						"name": "A23a6",
+						"type": "String"
+					},
+					{
+						"name": "A23b1",
+						"type": "String"
+					},
+					{
+						"name": "A23b2",
+						"type": "String"
+					},
+					{
+						"name": "A23b3",
+						"type": "String"
+					},
+					{
+						"name": "A23b4",
+						"type": "String"
+					},
+					{
+						"name": "A23b5",
+						"type": "String"
+					},
+					{
+						"name": "A23b6",
+						"type": "String"
+					},
+					{
+						"name": "A23c1",
+						"type": "String"
+					},
+					{
+						"name": "A23c2",
+						"type": "String"
+					},
+					{
+						"name": "A23c3",
+						"type": "String"
+					},
+					{
+						"name": "A23c4",
+						"type": "String"
+					},
+					{
+						"name": "A23c5",
+						"type": "String"
+					},
+					{
+						"name": "A23c6",
+						"type": "String"
+					},
+					{
+						"name": "D34ax",
+						"type": "String"
+					},
+					{
+						"name": "A21c2",
+						"type": "String"
+					},
+					{
+						"name": "A23a7",
+						"type": "String"
+					},
+					{
+						"name": "A24a",
+						"type": "String"
+					},
+					{
+						"name": "A24b",
+						"type": "String"
+					},
+					{
+						"name": "B20a",
+						"type": "String"
+					},
+					{
+						"name": "B20b",
+						"type": "String"
+					},
+					{
+						"name": "B20c",
+						"type": "String"
+					},
+					{
+						"name": "B20d",
+						"type": "String"
+					},
+					{
+						"name": "B20e",
+						"type": "String"
+					},
+					{
+						"name": "B20f",
+						"type": "String"
+					},
+					{
+						"name": "B20z",
+						"type": "String"
+					},
+					{
+						"name": "B21a",
+						"type": "String"
+					},
+					{
+						"name": "B21b",
+						"type": "String"
+					},
+					{
+						"name": "B21c",
+						"type": "String"
+					},
+					{
+						"name": "B21d",
+						"type": "String"
+					},
+					{
+						"name": "B21e",
+						"type": "String"
+					},
+					{
+						"name": "B21f",
+						"type": "String"
+					},
+					{
+						"name": "B21z",
+						"type": "String"
+					},
+					{
+						"name": "B22b",
+						"type": "String"
+					},
+					{
+						"name": "B22c",
+						"type": "String"
+					},
+					{
+						"name": "B22d",
+						"type": "String"
+					},
+					{
+						"name": "B22e",
+						"type": "String"
+					},
+					{
+						"name": "B22f",
+						"type": "String"
+					},
+					{
+						"name": "B22z",
+						"type": "String"
+					},
+					{
+						"name": "B23b",
+						"type": "String"
+					},
+					{
+						"name": "B23c",
+						"type": "String"
+					},
+					{
+						"name": "B23d",
+						"type": "String"
+					},
+					{
+						"name": "B23e",
+						"type": "String"
+					},
+					{
+						"name": "B23f",
+						"type": "String"
+					},
+					{
+						"name": "B23z",
+						"type": "String"
+					},
+					{
+						"name": "B24",
+						"type": "String"
+					},
+					{
+						"name": "B26a",
+						"type": "String"
+					},
+					{
+						"name": "B26b",
+						"type": "String"
+					},
+					{
+						"name": "B27a",
+						"type": "String"
+					},
+					{
+						"name": "B27b",
+						"type": "String"
+					},
+					{
+						"name": "D54a",
+						"type": "String"
+					},
+					{
+						"name": "D54b",
+						"type": "String"
+					},
+					{
+						"name": "D54c",
+						"type": "String"
+					},
+					{
+						"name": "D54f",
+						"type": "String"
+					},
+					{
+						"name": "D21gx",
+						"type": "String"
+					},
+					{
+						"name": "A08month",
+						"type": "String"
+					},
+					{
+						"name": "C12Border",
+						"type": "String"
+					},
+					{
+						"name": "FY",
+						"type": "String"
+					},
+					{
+						"name": "B04AX",
+						"type": "String"
+					},
+					{
+						"name": "B04NX",
+						"type": "String"
+					},
+					{
+						"name": "ANYNMSx",
+						"type": "String"
+					},
+					{
+						"name": "FWID",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/Http_Treasury_Data')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SourceDataset_yn4')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Cp_Http_Lego_Files",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation",
+						"relativeUrl": "themes.csv.gz"
+					},
+					"columnDelimiter": ",",
+					"rowDelimiter": "\n",
+					"compressionCodec": "gzip",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "id",
+						"type": "String"
+					},
+					{
+						"name": "name",
+						"type": "String"
+					},
+					{
+						"name": "parent_id",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/Cp_Http_Lego_Files')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/StagingParquet')]",
+			"type": "Microsoft.Synapse/workspaces/datasets",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "linkedService1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "file.parquet",
+						"folderPath": "dataflow",
+						"fileSystem": "staging"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/linkedServices/linkedService1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/AzureBlobStorageMovie')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorageMovie_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Cp_Http_Lego_Files')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "[parameters('Cp_Http_Lego_Files_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Http_Treasury_Data')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"description": "Download Public Data From Treasury USA Spending - https://www.usaspending.gov/download_center/custom_award_data ",
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "[parameters('Http_Treasury_Data_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SyapseDedicatedSqlPool')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDW",
+				"typeProperties": {
+					"connectionString": "[parameters('SyapseDedicatedSqlPool_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/linkedService1')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('linkedService1_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('linkedService1_accountKey')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/synapse01ws-WorkspaceDefaultSqlServer')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"parameters": {
+					"DBName": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlDW",
+				"typeProperties": {
+					"connectionString": "[parameters('synapse01ws-WorkspaceDefaultSqlServer_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/synapse01ws-WorkspaceDefaultStorage')]",
+			"type": "Microsoft.Synapse/workspaces/linkedServices",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('synapse01ws-WorkspaceDefaultStorage_properties_typeProperties_url')]"
+				},
+				"connectVia": {
+					"referenceName": "AutoResolveIntegrationRuntime",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/integrationRuntimes/AutoResolveIntegrationRuntime')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/AutoResolveIntegrationRuntime')]",
+			"type": "Microsoft.Synapse/workspaces/integrationRuntimes",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"type": "Managed",
+				"typeProperties": {
+					"computeProperties": {
+						"location": "AutoResolve",
+						"dataFlowProperties": {
+							"computeType": "General",
+							"coreCount": 8,
+							"timeToLive": 0
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Trasformation')]",
+			"type": "Microsoft.Synapse/workspaces/dataflows",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "StagingParquet",
+								"type": "DatasetReference"
+							},
+							"name": "source1"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "ParquetDestinationStore",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						}
+					],
+					"transformations": [],
+					"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tformat: 'parquet') ~> source1\nsource1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'parquet',\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: []) ~> sink1"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/datasets/StagingParquet')]",
+				"[concat(variables('workspaceId'), '/datasets/ParquetDestinationStore')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/WorkspaceSystemIdentity')]",
+			"type": "Microsoft.Synapse/workspaces/credentials",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"type": "ManagedIdentity",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/00 CREATE WWI TABLES')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"folder": {
+					"name": "WWI"
+				},
+				"content": {
+					"query": "\n/************************************ Create Tables*********************************/\n\n\ncreate schema wwi\nGo\n\n -- 1. Create [FactTransaction] table\n\nCREATE TABLE [wwi].[FactTransaction]\n( \n\t[TransactionKey] [bigint]  NOT NULL,\n\t[DateKey] [date]  NOT NULL,\n\t[CustomerKey] [int]  NULL,\n\t[BillToCustomerKey] [int]  NULL,\n\t[SupplierKey] [int]  NULL,\n\t[TransactionTypeKey] [int]  NOT NULL,\n\t[PaymentMethodKey] [int]  NULL,\n\t[WWICustomerTransaction ID] [int]  NULL,\n\t[WWISupplierTransaction ID] [int]  NULL,\n\t[WWIInvoiceID] [int]  NULL,\n\t[WWIPurchaseOrderID] [int]  NULL,\n\t[SupplierInvoiceNumber] [nvarchar](20)  NULL,\n\t[TotalExcludingTax] [decimal](18,2)  NOT NULL,\n\t[TaxAmount] [decimal](18,2)  NOT NULL,\n\t[TotalIncludingTax] [decimal](18,2)  NOT NULL,\n\t[OutstandingBalance] [decimal](18,2)  NOT NULL,\n\t[IsFinalized] [nvarchar](5)  NOT NULL,\n\t[LineageKey] [int]  NOT NULL\n)\nWITH\n(\n\tDISTRIBUTION = HASH ( [CustomerKey] ),\n\tCLUSTERED COLUMNSTORE INDEX\n)\nGO\n\n-- 2. [FactStockHolding]\nCREATE TABLE [wwi].[FactStockHolding]\n( \n\t[StockHoldingKey] [bigint]  NOT NULL,\n\t[StockItemKey] [int]  NOT NULL,\n\t[QuantityOnHand] [int]  NOT NULL,\n\t[BinLocation] [nvarchar](20)  NOT NULL,\n\t[LastStocktakeQuantity] [int]  NOT NULL,\n\t[LastCostPrice] [decimal](18,2)  NOT NULL,\n\t[ReorderLevel] [int]  NOT NULL,\n\t[TargetStockLevel] [int]  NOT NULL,\n\t[LineageKey] [int]  NOT NULL\n)\nWITH\n(\n\tDISTRIBUTION = HASH ( [StockItemKey] ),\n\tCLUSTERED COLUMNSTORE INDEX\n)\nGO\n\n-- 3.  [FactSale]\nCREATE TABLE [wwi].[FactSale]\n( \n\t[SaleKey] [bigint]  NOT NULL,\n\t[CityKey] [int]  NOT NULL,\n\t[CustomerKey] [int]  NOT NULL,\n\t[BillToCustomerKey] [int]  NOT NULL,\n\t[StockItemKey] [int]  NOT NULL,\n\t[InvoiceDateKey] [date]  NOT NULL,\n\t[DeliveryDateKey] [date]  NULL,\n\t[SalespersonKey] [int]  NOT NULL,\n\t[WWIInvoiceID] [int]  NOT NULL,\n\t[Description] [nvarchar](100)  NOT NULL,\n\t[Package] [nvarchar](50)  NOT NULL,\n\t[Quantity] [int]  NOT NULL,\n\t[UnitPrice] [decimal](18,2)  NOT NULL,\n\t[TaxRate] [decimal](18,3)  NOT NULL,\n\t[TotalExcludingTax] [decimal](18,2)  NOT NULL,\n\t[TaxAmount] [decimal](18,2)  NOT NULL,\n\t[Profit] [decimal](18,2)  NOT NULL,\n\t[TotalIncludingTax] [decimal](18,2)  NOT NULL,\n\t[TotalDryItems] [int]  NOT NULL,\n\t[TotalChillerItems] [int]  NOT NULL,\n\t[LineageKey] [int]  NOT NULL\n)\nWITH\n(\n\tDISTRIBUTION = HASH ( [CustomerKey] ),\n\tCLUSTERED COLUMNSTORE INDEX\n)\nGO\n\n-- 4. [FactPurchase]\n\nCREATE TABLE [wwi].[FactPurchase]\n( \n\t[PurchaseKey] [bigint]  NOT NULL,\n\t[DateKey] [date]  NOT NULL,\n\t[SupplierKey] [int]  NOT NULL,\n\t[StockItemKey] [int]  NOT NULL,\n\t[WWIPurchaseOrderID] [int]  NULL,\n\t[OrderedOuters] [int]  NOT NULL,\n\t[OrderedQuantity] [int]  NOT NULL,\n\t[ReceivedOuters] [int]  NOT NULL,\n\t[Package] [nvarchar](50)  NOT NULL,\n\t[IsOrderFinalized] [nvarchar](5)  NOT NULL,\n\t[LineageKey] [int]  NOT NULL\n)\nWITH\n(\n\tDISTRIBUTION = HASH ( [SupplierKey] ),\n\tCLUSTERED COLUMNSTORE INDEX\n)\nGO\n\n-- 5. [FactOrder]\nCREATE TABLE [wwi].[FactOrder]\n( \n\t[OrderKey] [bigint]  NOT NULL,\n\t[CityKey] [int]  NOT NULL,\n\t[CustomerKey] [int]  NOT NULL,\n\t[StockItemKey] [int]  NOT NULL,\n\t[OrderDateKey] [date]  NOT NULL,\n\t[PickedDateKey] [date]  NULL,\n\t[SalespersonKey] [int]  NOT NULL,\n\t[PickerKey] [int]  NULL,\n\t[WWIOrderID] [int]  NOT NULL,\n\t[WWIBackorderID] [int]  NULL,\n\t[Description] [nvarchar](100)  NOT NULL,\n\t[Package] [nvarchar](50)  NOT NULL,\n\t[Quantity] [int]  NOT NULL,\n\t[UnitPrice] [decimal](18,2)  NOT NULL,\n\t[TaxRate] [decimal](18,3)  NOT NULL,\n\t[TotalExcludingTax] [decimal](18,2)  NOT NULL,\n\t[TaxAmount] [decimal](18,2)  NOT NULL,\n\t[TotalIncludingTax] [decimal](18,2)  NOT NULL,\n\t[LineageKey] [int]  NULL\n)\nWITH\n(\n\tDISTRIBUTION = HASH ( [CustomerKey] ),\n\tCLUSTERED COLUMNSTORE INDEX\n)\nGO\n\n--6. [FactMovement]\nCREATE TABLE [wwi].[FactMovement]\n( \n\t[MovementKey] [bigint]  NOT NULL,\n\t[DateKey] [date]  NOT NULL,\n\t[StockItemKey] [int]  NOT NULL,\n\t[CustomerKey] [int]  NULL,\n\t[SupplierKey] [int]  NULL,\n\t[TransactionTypeKey] [int]  NOT NULL,\n\t[WWIStockItemTransactionID] [int]  NOT NULL,\n\t[WWIInvoiceID] [int]  NULL,\n\t[WWIPurchaseOrderID] [int]  NULL,\n\t[Quantity] [int]  NOT NULL,\n\t[LineageKey] [int]  NOT NULL\n)\nWITH\n(\n\tDISTRIBUTION = HASH ( [CustomerKey] ),\n\tCLUSTERED COLUMNSTORE INDEX\n)\nGO\n\n--7. [DimTransactionType]\nCREATE TABLE [wwi].[DimTransactionType]\n( \n\t[TransactionTypeKey] [int]  NOT NULL,\n\t[WWITransactionTypeID] [int]  NOT NULL,\n\t[TransactionType] [nvarchar](50)  NOT NULL,\n\t[ValidFrom] [datetime2](7)  NOT NULL,\n\t[ValidTo] [datetime2](7)  NOT NULL,\n\t[LineageKey] [int]  NOT NULL\n)\nWITH\n(\n\tDISTRIBUTION = REPLICATE,\n\tCLUSTERED COLUMNSTORE INDEX\n)\nGO\n\n--8. DimSupplier\nCREATE TABLE [wwi].[DimSupplier]\n( \n\t[SupplierKey] [int]  NOT NULL,\n\t[WWISupplierID] [int]  NOT NULL,\n\t[Supplier] [nvarchar](100)  NOT NULL,\n\t[Category] [nvarchar](50)  NOT NULL,\n\t[PrimaryContact] [nvarchar](50)  NOT NULL,\n\t[SupplierReference] [nvarchar](20)  NULL,\n\t[PaymentDays] [int]  NOT NULL,\n\t[PostalCode] [nvarchar](10)  NOT NULL,\n\t[ValidFrom] [datetime2](7)  NOT NULL,\n\t[ValidTo] [datetime2](7)  NOT NULL,\n\t[LineageKey] [int]  NOT NULL\n)\nWITH\n(\n\tDISTRIBUTION = REPLICATE,\n\tCLUSTERED COLUMNSTORE INDEX\n)\nGO\n\n--9. [DimStockItem]\n\nCREATE TABLE [wwi].[DimStockItem]\n( \n\t[StockItemKey] [int]  NOT NULL,\n\t[WWIStockItemID] [int]  NOT NULL,\n\t[Stock Item] [nvarchar](100)  NOT NULL,\n\t[Color] [nvarchar](20)  NOT NULL,\n\t[SellingPackage] [nvarchar](50)  NOT NULL,\n\t[Buying Package] [nvarchar](50)  NOT NULL,\n\t[Brand] [nvarchar](50)  NOT NULL,\n\t[Size] [nvarchar](20)  NOT NULL,\n\t[LeadTimeDays] [int]  NOT NULL,\n\t[QuantityPerOuter] [int]  NOT NULL,\n\t[IsChillerStock] [nvarchar](5)  NOT NULL,\n\t[Barcode] [nvarchar](50)  NULL,\n\t[TaxRate] [decimal](18,3)  NOT NULL,\n\t[UnitPrice] [decimal](18,2)  NOT NULL,\n\t[RecommendedRetailPrice] [decimal](18,2)  NULL,\n\t[TypicalWeightPerUnit] [decimal](18,3)  NOT NULL,\n\t[ValidFrom] [datetime2](7)  NOT NULL,\n\t[ValidTo] [datetime2](7)  NOT NULL,\n\t[LineageKey] [int]  NOT NULL\n)\nWITH\n(\n\tDISTRIBUTION = REPLICATE,\n\tCLUSTERED COLUMNSTORE INDEX\n)\nGO\n\n--10. DimPaymentMethod\nCREATE TABLE [wwi].[DimPaymentMethod]\n( \n\t[PaymentMethodKey] [int]  NOT NULL,\n\t[WWIPaymentMethodID] [int]  NOT NULL,\n\t[PaymentMethod] [nvarchar](50)  NOT NULL,\n\t[ValidFrom] [datetime2](7)  NOT NULL,\n\t[ValidTo] [datetime2](7)  NOT NULL,\n\t[LineageKey] [int]  NOT NULL\n)\nWITH\n(\n\tDISTRIBUTION = REPLICATE,\n\tCLUSTERED COLUMNSTORE INDEX\n)\nGO\n\n--11. [DimEmployee]\nCREATE TABLE [wwi].[DimEmployee]\n( \n\t[EmployeeKey] [int]  NOT NULL,\n\t[WWIEmployeeID] [int]  NOT NULL,\n\t[Employee] [nvarchar](50)  NOT NULL,\n\t[PreferredName] [nvarchar](50)  NOT NULL,\n\t[IsSalesperson] [nvarchar](5)  NOT NULL,\n\t[ValidFrom] [datetime2](7)  NOT NULL,\n\t[ValidTo] [datetime2](7)  NOT NULL,\n\t[LineageKey] [int]  NOT NULL\n)\nWITH\n(\n\tDISTRIBUTION = REPLICATE,\n\tCLUSTERED COLUMNSTORE INDEX\n)\nGO\n\n--12. DimDate\nCREATE TABLE [wwi].[DimDate]\n( \n\t[Date] [date]  NOT NULL,\n\t[DayNumber] [int]  NOT NULL,\n\t[Day] [nvarchar](10)  NOT NULL,\n\t[Month] [nvarchar](10)  NOT NULL,\n\t[ShortMonth] [nvarchar](3)  NOT NULL,\n\t[CalendarMonthNumber] [int]  NOT NULL,\n\t[CalendarMonthLabel] [nvarchar](20)  NOT NULL,\n\t[CalendarYear] [int]  NOT NULL,\n\t[CalendarYearLabel] [nvarchar](10)  NOT NULL,\n\t[FiscalMonthNumber] [int]  NOT NULL,\n\t[FiscalMonthLabel] [nvarchar](20)  NOT NULL,\n\t[FiscalYear] [int]  NOT NULL,\n\t[FiscalYearLabel] [nvarchar](10)  NOT NULL,\n\t[ISOWeekNumber] [int]  NOT NULL\n)\nWITH\n(\n\tDISTRIBUTION = REPLICATE,\n\tCLUSTERED COLUMNSTORE INDEX\n)\nGO\n\n--13. [DimCity]\nCREATE TABLE [wwi].[DimCity]\n( \n\t[CityKey] [int]  NOT NULL,\n\t[WWICityID] [int]  NOT NULL,\n\t[City] [nvarchar](50)  NOT NULL,\n\t[StateProvince] [nvarchar](50)  NOT NULL,\n\t[Country] [nvarchar](60)  NOT NULL,\n\t[Continent] [nvarchar](30)  NOT NULL,\n\t[SalesTerritory] [nvarchar](50)  NOT NULL,\n\t[Region] [nvarchar](30)  NOT NULL,\n\t[Subregion] [nvarchar](30)  NOT NULL,\n\t[LatestRecordedPopulation] [bigint]  NOT NULL,\n\t[ValidFrom] [datetime2](7)  NOT NULL,\n\t[ValidTo] [datetime2](7)  NOT NULL,\n\t[LineageKey] [int]  NOT NULL\n)\nWITH\n(\n\tDISTRIBUTION = REPLICATE,\n\tCLUSTERED COLUMNSTORE INDEX\n)\nGO\n\n--14. [DimCustomer]\nCREATE TABLE [wwi].[DimCustomer]\n( \n\t[CustomerKey] [int]  NOT NULL,\n\t[WWICustomerID] [int]  NOT NULL,\n\t[Customer] [nvarchar](100)  NOT NULL,\n\t[BillToCustomer] [nvarchar](100)  NOT NULL,\n\t[Category] [nvarchar](50)  NOT NULL,\n\t[BuyingGroup] [nvarchar](50)  NOT NULL,\n\t[PrimaryContact] [nvarchar](50)  NOT NULL,\n\t[PostalCode] [nvarchar](10)  NOT NULL,\n\t[ValidFrom] [datetime2](7)  NOT NULL,\n\t[ValidTo] [datetime2](7)  NOT NULL,\n\t[LineageKey] [int]  NOT NULL\n)\nWITH\n(\n\tDISTRIBUTION = REPLICATE,\n\tCLUSTERED COLUMNSTORE INDEX\n)\nGO\n\n--15. [PostalCodes]\nCREATE TABLE [wwi].[PostalCodes]\n( \n\t[City] [nvarchar](30)  NULL,\n\t[State] [nvarchar](30)  NULL,\n\t[Zip] [nvarchar](10)  NULL,\n\t[Latitude] [nvarchar](30)  NULL,\n\t[Longitude] [nvarchar](30)  NULL,\n\t[Timezone] [nvarchar](5)  NULL\n)\nWITH\n(\n\tDISTRIBUTION = ROUND_ROBIN,\n\tCLUSTERED COLUMNSTORE INDEX\n)\nGO\n\n --16. Employee PII Data\n CREATE TABLE [wwi].[EmployeePIIData]\n( \n\t[Id] [int]  NULL,\n\t[FirstName] [nvarchar](30)  NULL,\n\t[LastName] [nvarchar](30)  NULL,\n\t[Company] [nvarchar](30)  NULL,\n\t[Address] [nvarchar](30)  NULL,\n\t[City] [nvarchar](30)  NULL,\n\t[County] [nvarchar](30)  NULL,\n\t[State] [nvarchar](10)  NULL,\n\t[Phone] [varchar](100)  NULL,\n\t[email] [varchar](100)  NULL,\n\t[SSN] [nvarchar](30)  NULL\n)\nWITH\n(\n\tDISTRIBUTION = ROUND_ROBIN,\n\tCLUSTERED COLUMNSTORE INDEX\n)\nGO",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "master",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/01 COPY INTO WWI TABLES')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"folder": {
+					"name": "WWI"
+				},
+				"content": {
+					"query": "\n/****************** Load data into SQL Pool table using COPY INTO ***********************/\n\n-- 1. FactTransaction\nCOPY INTO wwi.FactTransaction\n(TransactionKey 1, DateKey 2, CustomerKey 3, BillToCustomerKey 4, SupplierKey 5, TransactionTypeKey 6, PaymentMethodKey 7, [WWICustomerTransaction ID] 8, [WWISupplierTransaction ID] 9, WWIInvoiceID 10, WWIPurchaseOrderID 11, SupplierInvoiceNumber 12, TotalExcludingTax 13, TaxAmount 14, TotalIncludingTax 15, OutstandingBalance 16, IsFinalized 17, LineageKey 18)\nFROM 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/WWI/wwi-facttransaction.csv'\nWITH\n(\n\tFILE_TYPE = 'CSV'\n\t,MAXERRORS = 0\n\t,FIELDQUOTE = '\"'\n\t,FIELDTERMINATOR = '|'\n\t,FIRSTROW = 2\n\t,ERRORFILE = 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/'\n\t,IDENTITY_INSERT = 'OFF'\n)\n\nGO\n\n\n-- 2. FactStockHolding\n\nCOPY INTO wwi.FactStockHolding\n(StockHoldingKey 1, StockItemKey 2, QuantityOnHand 3, BinLocation 4, LastStocktakeQuantity 5, LastCostPrice 6, ReorderLevel 7, TargetStockLevel 8, LineageKey 9)\nFROM 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/WWI/wwi-factstockholding.csv'\nWITH\n(\n\tFILE_TYPE = 'CSV'\n\t,MAXERRORS = 0\n\t,FIELDQUOTE = '\"'\n\t,FIELDTERMINATOR = '|'\n\t,FIRSTROW = 2\n\t,ERRORFILE = 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/'\n\t,IDENTITY_INSERT = 'OFF'\n)\n\nGO\n\n\n-- 3. FactSale\nCOPY INTO wwi.FactSale\n(SaleKey 1, CityKey 2, CustomerKey 3, BillToCustomerKey 4, StockItemKey 5, InvoiceDateKey 6, DeliveryDateKey 7, SalespersonKey 8, WWIInvoiceID 9, Description 10, Package 11, Quantity 12, UnitPrice 13, TaxRate 14, TotalExcludingTax 15, TaxAmount 16, Profit 17, TotalIncludingTax 18, TotalDryItems 19, TotalChillerItems 20, LineageKey 21)\nFROM 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/WWI/wwi-factsale.csv'\nWITH\n(\n\tFILE_TYPE = 'CSV'\n\t,MAXERRORS = 0\n\t,FIELDQUOTE = '\"'\n\t,FIELDTERMINATOR = '|'\n\t,FIRSTROW = 2\n\t,ERRORFILE = 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/'\n\t,IDENTITY_INSERT = 'OFF'\n)\nGO\n\n\n-- 4. FactPurchase\nCOPY INTO wwi.FactPurchase\n(PurchaseKey 1, DateKey 2, SupplierKey 3, StockItemKey 4, WWIPurchaseOrderID 5, OrderedOuters 6, OrderedQuantity 7, ReceivedOuters 8, Package 9, IsOrderFinalized 10, LineageKey 11)\nFROM 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/WWI/wwi-factpurchase.csv'\nWITH\n(\n\tFILE_TYPE = 'CSV'\n\t,MAXERRORS = 0\n\t,FIELDQUOTE = '\"'\n\t,FIELDTERMINATOR = '|'\n\t,FIRSTROW = 2\n\t,ERRORFILE = 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/'\n\t,IDENTITY_INSERT = 'OFF'\n)\n\nGO\n\n\n--5. FactOrder\nCOPY INTO wwi.FactOrder\n(OrderKey 1, CityKey 2, CustomerKey 3, StockItemKey 4, OrderDateKey 5, PickedDateKey 6, SalespersonKey 7, PickerKey 8, WWIOrderID 9, WWIBackorderID 10, Description 11, Package 12, Quantity 13, UnitPrice 14, TaxRate 15, TotalExcludingTax 16, TaxAmount 17, TotalIncludingTax 18, LineageKey 19)\nFROM 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/WWI/wwi-factorder.csv'\nWITH\n(\n\tFILE_TYPE = 'CSV'\n\t,MAXERRORS = 0\n\t,FIELDQUOTE = '\"'\n\t,FIELDTERMINATOR = '|'\n\t,FIRSTROW = 3\n\t,ERRORFILE = 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/'\n\t,IDENTITY_INSERT = 'OFF'\n)\nGO\n\n-- 6. [FactMovement]\nCOPY INTO wwi.FactMovement\n(MovementKey 1, DateKey 2, StockItemKey 3, CustomerKey 4, SupplierKey 5, TransactionTypeKey 6, WWIStockItemTransactionID 7, WWIInvoiceID 8, WWIPurchaseOrderID 9, Quantity 10, LineageKey 11)\nFROM 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/WWI/wwi-factmovement.csv'\nWITH\n(\n\tFILE_TYPE = 'CSV'\n\t,MAXERRORS = 0\n\t,FIELDQUOTE = '\"'\n\t,FIELDTERMINATOR = '|'\n\t,FIRSTROW = 2\n\t,ERRORFILE = 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/'\n\t,IDENTITY_INSERT = 'OFF'\n)\nGO\n\n--7. DimTransactionType\nCOPY INTO wwi.DimTransactionType\n(TransactionTypeKey 1, WWITransactionTypeID 2, TransactionType 3, ValidFrom 4, ValidTo 5, LineageKey 6)\nFROM 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/WWI/wwi-dimtransactiontype.csv'\nWITH\n(\n\tFILE_TYPE = 'CSV'\n\t,MAXERRORS = 0\n\t,FIELDQUOTE = '\"'\n\t,FIELDTERMINATOR = '|'\n\t,FIRSTROW = 2\n\t,ERRORFILE = 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/'\n\t,IDENTITY_INSERT = 'OFF'\n)\n\nGO\n\n--8. DimSupplier\nCOPY INTO wwi.DimSupplier\n(SupplierKey 1, WWISupplierID 2, Supplier 3, Category 4, PrimaryContact 5, SupplierReference 6, PaymentDays 7, PostalCode 8, ValidFrom 9, ValidTo 10, LineageKey 11)\nFROM 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/WWI/wwi-dimsupplier.csv'\nWITH\n(\n\tFILE_TYPE = 'CSV'\n\t,MAXERRORS = 0\n\t,FIELDQUOTE = '\"'\n\t,FIELDTERMINATOR = '|'\n\t,FIRSTROW = 2\n\t,ERRORFILE = 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/'\n\t,IDENTITY_INSERT = 'OFF'\n)\n\nGO\n\n--9. DimStockItem\nCOPY INTO wwi.DimStockItem\n--(StockItemKey 1, WWIStockItemID 2, Stock Item 3, Color 4, SellingPackage 5, Buying Package 6, Brand 7, Size 8, LeadTimeDays 9, QuantityPerOuter 10, IsChillerStock 11, Barcode 12, TaxRate 13, UnitPrice 14, RecommendedRetailPrice 15, TypicalWeightPerUnit 16, ValidFrom 17, ValidTo 18, LineageKey 19)\nFROM 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/WWI/wwi-dimstockitem.csv'\nWITH\n(\n\tFILE_TYPE = 'CSV'\n\t,MAXERRORS = 0\n\t,FIELDQUOTE = '\"'\n\t,FIELDTERMINATOR = '|'\n\t,FIRSTROW = 2\n\t,ERRORFILE = 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/'\n\t,IDENTITY_INSERT = 'OFF'\n)\n\nGO\n\n--10. DimPaymentMethod\nCOPY INTO wwi.DimPaymentMethod\n(PaymentMethodKey 1, WWIPaymentMethodID 2, PaymentMethod 3, ValidFrom 4, ValidTo 5, LineageKey 6)\nFROM 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/WWI/wwi-dimpaymentmethod.csv'\nWITH\n(\n\tFILE_TYPE = 'CSV'\n\t,MAXERRORS = 0\n\t,FIELDQUOTE = '\"'\n\t,FIELDTERMINATOR = '|'\n\t,FIRSTROW = 2\n\t,ERRORFILE = 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/'\n\t,IDENTITY_INSERT = 'OFF'\n)\n\nGO\n\n--11. DimEmployee\nCOPY INTO wwi.DimEmployee\n(EmployeeKey 1, WWIEmployeeID 2, Employee 3, PreferredName 4, IsSalesperson 5, ValidFrom 6, ValidTo 7, LineageKey 8)\nFROM 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/WWI/wwi-dimemployee.csv'\nWITH\n(\n\tFILE_TYPE = 'CSV'\n\t,MAXERRORS = 0\n\t,FIELDQUOTE = '\"'\n\t,FIELDTERMINATOR = '|'\n\t,FIRSTROW = 2\n\t,ERRORFILE = 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/'\n\t,IDENTITY_INSERT = 'OFF'\n)\n\nGO\n\n--12. DimDate\nCOPY INTO wwi.DimDate\n(Date 1, DayNumber 2, Day 3, Month 4, ShortMonth 5, CalendarMonthNumber 6, CalendarMonthLabel 7, CalendarYear 8, CalendarYearLabel 9, FiscalMonthNumber 10, FiscalMonthLabel 11, FiscalYear 12, FiscalYearLabel 13, ISOWeekNumber 14)\nFROM 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/WWI/wwi-dimdate.csv'\nWITH\n(\n\tFILE_TYPE = 'CSV'\n\t,MAXERRORS = 0\n\t,FIELDQUOTE = '\"'\n\t,FIELDTERMINATOR = '|'\n\t,FIRSTROW = 2\n\t,ERRORFILE = 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/'\n\t,IDENTITY_INSERT = 'OFF'\n)\n\nGO\n\n--13. DimCity\nCOPY INTO wwi.DimCity\n(CityKey 1, WWICityID 2, City 3, StateProvince 4, Country 5, Continent 6, SalesTerritory 7, Region 8, Subregion 9, LatestRecordedPopulation 10, ValidFrom 11, ValidTo 12, LineageKey 13)\nFROM 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/WWI/wwi-dimcity.csv'\nWITH\n(\n\tFILE_TYPE = 'CSV'\n\t,MAXERRORS = 0\n\t,FIELDQUOTE = '\"'\n\t,FIELDTERMINATOR = '|'\n\t,FIRSTROW = 2\n\t,ERRORFILE = 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/'\n\t,IDENTITY_INSERT = 'OFF'\n)\n\nGO\n\n--14. DimCustomer\nCOPY INTO wwi.DimCustomer\n(CustomerKey 1, WWICustomerID 2, Customer 3, BillToCustomer 4, Category 5, BuyingGroup 6, PrimaryContact 7, PostalCode 8, ValidFrom 9, ValidTo 10, LineageKey 11)\nFROM 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/WWI/wwi-dimcustomer.csv'\nWITH\n(\n\tFILE_TYPE = 'CSV'\n\t,MAXERRORS = 0\n\t,FIELDQUOTE = '\"'\n\t,FIELDTERMINATOR = '|'\n\t,FIRSTROW = 2\n\t,ERRORFILE = 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/'\n\t,IDENTITY_INSERT = 'OFF'\n)\n\nGO\n\n\n--15. [PostalCodes]\nCOPY INTO [wwi].[PostalCodes]\n([City] 1, [State] 2,\t[Zip] 3,\t[Latitude] 4,\t[Longitude] 5,\t[Timezone] 6)\nFROM 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/WWI/postalcodes.csv'\nWITH\n(\n\tFILE_TYPE = 'CSV'\n\t,MAXERRORS = 0\n\t,FIELDQUOTE = '\"'\n\t,FIELDTERMINATOR = ','\n\t,FIRSTROW = 2\n\t,ERRORFILE = 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/'\n\t,IDENTITY_INSERT = 'OFF'\n)\n\nGO\n\n--16.EmployeePIIData\nCOPY INTO wwi.EmployeePIIData\n(Id 1, FirstName 2, LastName 3, Company 4, Address 5, City 6, County 7, State 8, Phone 9, email 10, SSN 11)\nFROM 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/WWI/EmployeePIIData20K.csv'\nWITH\n(\n\tFILE_TYPE = 'CSV'\n\t,MAXERRORS = 0\n\t,FIELDQUOTE = '\"'\n\t,FIELDTERMINATOR = ','\n\t,FIRSTROW = 2\n\t,ERRORFILE = 'https://synapse01adl.dfs.core.windows.net/synapse01fs/rawdata/'\n\t,IDENTITY_INSERT = 'OFF'\n)\n--END\nGO\n",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "master",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/02 Set up RLS DDM')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"folder": {
+					"name": "WWI"
+				},
+				"content": {
+					"query": "\n/*****************************************************************************************************************/\n-- 1. Setting up Dynamic Data Masking on EmailId column of wwi.EmployeePIIData\n\n        ALTER TABLE wwi.EmployeePIIData  \n        ALTER COLUMN EmailId varchar(100) MASKED WITH (FUNCTION = 'email()'); \n\n        ALTER TABLE wwi.EmployeePIIData  \n        ALTER COLUMN Phone varchar(100) MASKED WITH (FUNCTION = 'partial(0,\"XXX-XXX-XX\",2)'); \n\n/*****************************************************************************************************************/\n\n-- 2. Setting up Row Level Security on State\n\n        --Create User and Grant Select Permissions\n        CREATE USER [youralias@domain.com] FROM EXTERNAL PROVIDER\n        GRANT SELECT ON wwi.EmployeePIIData TO [youralias@domain.com] \n        EXEC sp_addrolemember 'db_datareader', 'youralias@domain.com'\n\n        CREATE USER [someoneelse@domain.com] FROM EXTERNAL PROVIDER\n        GRANT SELECT ON wwi.EmployeePIIData TO [someoneelse@domain.com] \n        EXEC sp_addrolemember 'db_datareader', 'someoneelse@domain.com'\n\n\n        --Grant Impersonate permissions for AAD login \n        GRANT IMPERSONATE ON USER::[someoneelse@domain.com] TO [youralias@domain.com];\n        GRANT IMPERSONATE ON USER::[youralias@domain.com] TO [someoneelse@domain.com];\n\n        --Create roles as values present in column \n        --CREATE ROLE [DE]; --This role already exists for SQL login\n        CREATE ROLE [CA];\n        CREATE ROLE [PA];\n        CREATE ROLE [NY];\n       \n        -- Add AAD users to roles      \n        EXEC sp_addrolemember 'NY', 'youralias@domain.com';\n        EXEC sp_addrolemember 'PA', 'youralias@domain.com';\n        EXEC sp_addrolemember 'CA', 'someoneelse@domain.com';\n\n\n        CREATE FUNCTION wwi.fn_securitypredicate_rolemember(@State AS sysname)  \n        RETURNS TABLE  \n        WITH SCHEMABINDING  \n        AS  \n        RETURN SELECT 1 AS fn_securitypredicate_result   \n        WHERE \n            (@State = 'NY' and IS_ROLEMEMBER('NY') = 1) \n        or (@State = 'CA' and IS_ROLEMEMBER('CA') = 1) \n        or (@State = 'PA' and IS_ROLEMEMBER('PA') = 1)\n        or IS_ROLEMEMBER('dbo') = 1; \n\n        --Create Security Policy to filter rows based on column values \n        CREATE SECURITY POLICY StateFilter_rolemember \n        ADD FILTER PREDICATE wwi.fn_securitypredicate_rolemember([state])   \n        ON  wwi.EmployeePIIData \n        WITH (STATE = ON); \n\n\n        --Test Runs\n        select USER_NAME()\n        select top 100 * from wwi.EmployeePIIData \n        EXECUTE AS USER ='youralias@domain.com'\n        select user_name() as UserName, is_rolemember('NY') As IsALCustomer, is_rolemember('CA') As IsCACustomer\n        select top 100 * from wwi.EmployeePIIData ;\n        revert\n        EXECUTE AS USER ='someoneelse@domain.com'\n        select user_name() as UserName, is_rolemember('NY') As IsALCustomer, is_rolemember('CA') As IsCACustomer\n        select top 100 [State], * from wwi.EmployeePIIData ;\n        revert\n        select user_name() as UserName, is_rolemember('NY') As IsALCustomer, is_rolemember('CA') As IsCACustomer\n        select top 100 * from wwi.EmployeePIIData ;\n\n\n\n--      DROP SECURITY POLICY StateFilter_rolemember; \n--      DROP FUNCTION Security.fn_securitypredicate_rolemember\n--      DROP SCHEMA Security;",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "master",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/03 Example run for RLS DDM')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"folder": {
+					"name": "WWI"
+				},
+				"content": {
+					"query": "--Returns records for CA state\nEXECUTE AS USER ='someone@domain.com'\nSELECT \n    Count(*) as EmployeeCount\nFROM \n    wwi.EmployeePIIData;\n\nSELECT \n    [FirstName]\n    ,[LastName]\n    ,[State]\n    ,[Phone]\n    ,[Email]\nFROM \n    wwi.EmployeePIIData ;\nrevert\n\n\n\n--Returns records for PA and NY state\nEXECUTE AS USER ='youralias@domain.com'\nSELECT \n    Count(*) as EmployeeCount\nFROM \n    wwi.EmployeePIIData;\n\nSELECT \n    [FirstName]\n    ,[LastName]\n    ,[State]\n    ,[Phone]\n    ,[Email]    \nFROM \n    wwi.EmployeePIIData;\nrevert",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "master",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/05 Data Exploration with SQLOD')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"folder": {
+					"name": "WWI"
+				},
+				"content": {
+					"query": "SELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://<storage_Account>.dfs.core.windows.net/<container_name>/<folder_path>/OrdersByState/part-00000-83ea4f3d-173b-413e-9b7e-45959f6b78d0-c000.snappy.parquet',\n        FORMAT='PARQUET'\n    ) AS [result]\n",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "master",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Basic queries to a Synapse Pool')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "-- Use SELECT to retrieve rows and columns\nSELECT *\nFROM DimEmployee\nORDER BY LastName;\n\n-- Use table aliasing to achieve the same result.\n\nSELECT e.*\nFROM DimEmployee AS e\nORDER BY LastName;\n\n-- Return only the rows for DimEmployee that have an EndDate that is not NULL and a MaritalStatus of 'M' (married).\n\nSELECT FirstName, LastName, StartDate AS FirstDay\nFROM DimEmployee\nWHERE EndDate IS NOT NULL\nAND MaritalStatus = 'M'\nORDER BY LastName;\n\n-- Use DISTINCT to generate a list of all unique titles in the DimEmployee table.\n\nSELECT DISTINCT Title\nFROM DimEmployee\nORDER BY Title;\n\n-- Use GROUP BY with multiple groups and where\nSELECT OrderDateKey, PromotionKey, AVG(SalesAmount) AS AvgSales, SUM(SalesAmount) AS TotalSales\nFROM FactInternetSales\nwhere OrderDateKey > '20020801'\nGROUP BY OrderDateKey, PromotionKey\nORDER BY OrderDateKey;\n\n-- Use the HAVING clause\nSELECT OrderDateKey, SUM(SalesAmount) AS TotalSales\nFROM FactInternetSales\nGROUP BY OrderDateKey\nHAVING OrderDateKey > 20010000\nORDER BY OrderDateKey;\n",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "synapse01sqlp",
+						"poolName": "synapse01sqlp"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Query-All_Contracts_PrimeTransactions_FY2021')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "-- This is auto-generated code\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://synapse01adl.blob.core.windows.net/synapse01fs/raw/Treasury/inputs/All_Contracts_PrimeTransactions_FY2020.csv',\n        FORMAT = 'CSV',\n        PARSER_VERSION='2.0',\n        HEADER_ROW=TRUE\n    ) AS [result]\n",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "master",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SQL script 1')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "-- Drop table dimactors;\n\n-- Create table dimactors\n-- (ActorSK bigint identity(1,1) NOT NULL,\n-- ActorID UNIQUEIDENTIFIER NOT NULL,\n-- ActorName varchar(81) NOT NULL,\n-- ActorGender char(1) NOT NULL\n-- )\n-- WITH (CLUSTERED COLUMNSTORE INDEX)\n-- ;\n\nCREATE TABLE [dbo].[DimCategories] (\n    [MovieCategorySK]          TINYINT      NOT NULL,\n    [MovieCategoryDescription] VARCHAR (50) NOT NULL\n)\nWITH (HEAP, DISTRIBUTION = REPLICATE);\n\nCREATE TABLE [dbo].[DimCustomers] (\n    [CustomerSK]      INT              NOT NULL,\n    [CustomerID]      UNIQUEIDENTIFIER NOT NULL,\n    [LastName]        VARCHAR (50)     NOT NULL,\n    [FirstName]       VARCHAR (30)     NOT NULL,\n    [AddressLine1]    VARCHAR (50)     NOT NULL,\n    [AddressLine2]    VARCHAR (50)     NULL,\n    [City]            VARCHAR (30)     NOT NULL,\n    [State]           CHAR (2)         NOT NULL,\n    [ZipCode]         CHAR (5)         NOT NULL,\n    [PhoneNumber]     CHAR (10)        NOT NULL,\n    [RecordStartDate] DATE             NOT NULL,\n    [RecordEndDate]   DATE             NULL,\n    [ActiveFlag]      BIT              NOT NULL\n)\nWITH (CLUSTERED COLUMNSTORE INDEX, DISTRIBUTION = HASH([CustomerSK]));\n\nCREATE TABLE [dbo].[DimDate] (\n    [DateSK]         INT      NOT NULL,\n    [DateValue]      DATE     NOT NULL,\n    [DateYear]       SMALLINT NOT NULL,\n    [DateMonth]      TINYINT  NOT NULL,\n    [DateDay]        TINYINT  NOT NULL,\n    [DateDayOfWeek]  TINYINT  NOT NULL,\n    [DateDayOfYear]  SMALLINT NOT NULL,\n    [DateWeekOfYear] TINYINT  NOT NULL\n)\nWITH (HEAP, DISTRIBUTION = REPLICATE);\n\nCREATE TABLE [dbo].[DimLocation] (\n    [LocationSK]   SMALLINT     NOT NULL,\n    [LocationName] VARCHAR (50) NOT NULL,\n    [Streaming]    BIT          NOT NULL,\n    [Rentals]      BIT          NOT NULL,\n    [Sales]        BIT          NOT NULL\n)\nWITH (HEAP, DISTRIBUTION = REPLICATE);\n\nCREATE TABLE [dbo].[DimMovieActors] (\n    [MovieID] UNIQUEIDENTIFIER NOT NULL,\n    [ActorID] UNIQUEIDENTIFIER NOT NULL\n)\nWITH (HEAP, DISTRIBUTION = REPLICATE);\n\nCREATE TABLE [dbo].[DimMovies] (\n    [MovieSK]         INT              NOT NULL,\n    [MovieID]         UNIQUEIDENTIFIER NOT NULL,\n    [MovieTitle]      VARCHAR (100)    NOT NULL,\n    [MovieCategorySK] TINYINT          NOT NULL,\n    [MovieRatingSK]   TINYINT          NOT NULL,\n    [MovieRunTimeMin] SMALLINT         NOT NULL\n)\nWITH (HEAP, DISTRIBUTION = REPLICATE);\n\nCREATE TABLE [dbo].[DimRatings] (\n    [MovieRatingSK]          TINYINT     NOT NULL,\n    [MovieRatingDescription] VARCHAR (5) NOT NULL\n)\nWITH (HEAP, DISTRIBUTION = REPLICATE);\n\nCREATE TABLE [dbo].[DimTime] (\n    [TimeSK]          INT      NOT NULL,\n    [TimeValue]       TIME (7) NOT NULL,\n    [TimeHour]        TINYINT  NOT NULL,\n    [TimeMinute]      TINYINT  NOT NULL,\n    [TimeSecond]      TINYINT  NOT NULL,\n    [TimeMinuteOfDay] SMALLINT NOT NULL,\n    [TimeSecondOfDay] INT      NOT NULL\n)\nWITH (HEAP, DISTRIBUTION = REPLICATE);CREATE TABLE [dbo].[FactRentals] (\n    [RentalSK]       INT              NOT NULL,\n    [TransactionID]  UNIQUEIDENTIFIER NOT NULL,\n    [CustomerSK]     INT              NOT NULL,\n    [LocationSK]     SMALLINT         NOT NULL,\n    [MovieSK]        INT              NOT NULL,\n    [RentalDateSK]   INT              NOT NULL,\n    [ReturnDateSK]   INT              NULL,\n    [RentalDuration] TINYINT          NULL,\n    [RentalCost]     MONEY            NOT NULL,\n    [LateFee]        MONEY            NULL,\n    [TotalCost]      MONEY            NULL,\n    [RewindFlag]     BIT              NULL\n)\nWITH (CLUSTERED COLUMNSTORE INDEX, DISTRIBUTION = HASH([CustomerSK]));CREATE TABLE [dbo].[FactSales] (\n    [SalesSK]      INT              NOT NULL,\n    [OrderID]      UNIQUEIDENTIFIER NOT NULL,\n    [LineNumber]   TINYINT          NOT NULL,\n    [OrderDateSK]  INT              NOT NULL,\n    [ShipDateSK]   INT              NULL,\n    [CustomerSK]   INT              NOT NULL,\n    [LocationSK]   SMALLINT         NOT NULL,\n    [MovieSK]      INT              NOT NULL,\n    [DaysToShip]   TINYINT          NULL,\n    [Quantity]     TINYINT          NOT NULL,\n    [UnitCost]     MONEY            NOT NULL,\n    [ExtendedCost] MONEY            NOT NULL\n)\nWITH (CLUSTERED COLUMNSTORE INDEX, DISTRIBUTION = HASH([CustomerSK]));\n\nCREATE TABLE [dbo].[FactStreaming] (\n    [StreamingSK]       INT              NOT NULL,\n    [TransactionID]     UNIQUEIDENTIFIER NOT NULL,\n    [CustomerSK]        INT              NOT NULL,\n    [MovieSK]           INT              NOT NULL,\n    [StreamStartDateSK] INT              NOT NULL,\n    [StreamStartTimeSK] INT              NOT NULL,\n    [StreamEndDateSK]   INT              NULL,\n    [StreamEndTimeSK]   INT              NULL,\n    [StreamDurationSec] INT              NULL,\n    [StreamDurationMin] DECIMAL (10, 4)  NULL\n)\nWITH (CLUSTERED COLUMNSTORE INDEX, DISTRIBUTION = HASH([CustomerSK]));\n\nCREATE TABLE [dbo].[Numbers] (\n    [Number] INT NOT NULL\n)\nWITH (CLUSTERED COLUMNSTORE INDEX, DISTRIBUTION = REPLICATE);\n\n\n\n\n\n\n\n",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "synapse01sqlp",
+						"poolName": "synapse01sqlp"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SQL script 6')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "DROP TABLE [dbo].[DimCustomers]\nGO\n\nSET ANSI_NULLS ON\nGO\nSET QUOTED_IDENTIFIER ON\nGO\n\nCREATE TABLE [dbo].[DimCustomers]\n( \n\t[CustomerSK] [int]  NOT NULL,\n\t[CustomerID] [uniqueidentifier]  NOT NULL,\n\t[LastName] [varchar](50)  NOT NULL,\n\t[FirstName] [varchar](30)  NOT NULL,\n\t[AddressLine1] [varchar](50)  NOT NULL,\n\t[AddressLine2] [varchar](50)  NULL,\n\t[City] [varchar](30)  NOT NULL,\n\t[State] [char](2)  NOT NULL,\n\t[ZipCode] [char](5)  NOT NULL,\n\t[PhoneNumber] [char](10)  NOT NULL,\n\t[RecordStartDate] [date]  NOT NULL,\n\t[RecordEndDate] [date]  NULL,\n\t[ActiveFlag] [bit]  NOT NULL\n)\nWITH\n(\n\tDISTRIBUTION = HASH ( [CustomerSK] ),\n\tCLUSTERED COLUMNSTORE INDEX\n)\nGO",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "master",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SQL script 7')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "select count(*) from dimactors;",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "master",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/SQL script 8')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "SELECT TOP (100) [SalesSK]\n,[OrderID]\n,[LineNumber]\n,[OrderDateSK]\n,[ShipDateSK]\n,[CustomerSK]\n,[LocationSK]\n,[MovieSK]\n,[DaysToShip]\n,[Quantity]\n,[UnitCost]\n,[ExtendedCost]\n FROM [dbo].[FactSales]",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "master",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Sample Query data with SQL')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "/*\nFull tutorial available on: https://docs.microsoft.com/en-us/azure/synapse-analytics/sql/tutorial-data-analyst\nIn this tutorial, you learn how to perform exploratory data analysis by combining different Azure Open Datasets\nusing serverless SQL pool and then visualizing the results in Azure Synapse Studio.\n\nIn particular, you analyze the New York City (NYC) Taxi dataset that includes:\n\n - Pickup and drop-off dates and times.\n - Pick up and drop-off locations.\n - Trip distances.\n - Itemized fares.\n - Rate types.\n - Payment types.\n - Driver-reported passenger counts.*/\n\n\n/*\n * * * * * * * * * * * * * * * *\n * Automatic schema inference  *\n * * * * * * * * * * * * * * * *\n\nSince data is stored in the Parquet file format, automatic schema inference is available.\nYou can easily query the data without listing the data types of all columns in the files.\nYou also can use the virtual column mechanism and the filepath function to filter out a certain subset of files.\n\nLet's first get familiar with the NYC Taxi data by running the following query. */\n\nSELECT TOP 100 * FROM\n    OPENROWSET(\n        BULK 'https://azureopendatastorage.blob.core.windows.net/nyctlc/yellow/puYear=2019/puMonth=*/*.parquet',\n        FORMAT='PARQUET'\n    ) AS [nyc];\n\n\n/* Similarly, you can query the Public Holidays dataset by using the following query. */\n\nSELECT TOP 100 * FROM\n    OPENROWSET(\n        BULK 'https://azureopendatastorage.blob.core.windows.net/holidaydatacontainer/Processed/*.parquet',\n        FORMAT='PARQUET'\n    ) AS [holidays];\n\n/* Lastly, you can also query the Weather Data dataset by using the following query. */\n\nSELECT\n    TOP 100 *\nFROM\n    OPENROWSET(\n        BULK 'https://azureopendatastorage.blob.core.windows.net/isdweatherdatacontainer/ISDWeather/year=2018/month=*/*.parquet',\n        FORMAT='PARQUET'\n    ) AS [weather];\n\n/* You can learn more about the meaning of the individual columns in the descriptions\nof the NYC Taxi, Public Holidays, and Weather Data datasets on the Azure Opendatasets page. */\n\n\n/*\n * * * * * * * * * * * * * * * * * * * * * * * * * *\n * Time series, seasonality, and outlier analysis  *\n * * * * * * * * * * * * * * * * * * * * * * * * * *\nYou can easily summarize the yearly number of taxi rides by using the following query. */\n\nSELECT\n    YEAR(tpepPickupDateTime) AS current_year,\n    COUNT(*) AS rides_per_year\nFROM\n    OPENROWSET(\n        BULK 'https://azureopendatastorage.blob.core.windows.net/nyctlc/yellow/puYear=*/puMonth=*/*.parquet',\n        FORMAT='PARQUET'\n    ) AS [nyc]\nWHERE nyc.filepath(1) >= '2014' AND nyc.filepath(1) <= '2019'\nGROUP BY YEAR(tpepPickupDateTime)\nORDER BY 1 ASC;\n\n/* The data can be visualized in Synapse Studio by switching from the Table to the Chart view.\nYou can choose among different chart types, such as Area, Bar, Column, Line, Pie, and Scatter.\nIn this case, plot the Column chart with the Category column set to current_year.\n\nFrom this visualization, a trend of a decreasing number of rides over years can be clearly seen.\nPresumably, this decrease is due to the recent increased popularity of ride-sharing companies.\n*/\n\n\n/* For full tutorial click on \"?\" in top right corner then Knowledge center/Browse Available Samples/SQL Scripts/Analyze Azure Open Datasets using serverless SQL pool*/\n",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "master",
+						"poolName": "Built-in"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/create-All_Contracts_PrimeTransactions_FY2020')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "--drop table [dbo].[All_Contracts_PrimeTransactions_FY2020];\n\nSET ANSI_NULLS ON\nGO\nSET QUOTED_IDENTIFIER ON\nGO\n\nCREATE TABLE [dbo].[All_Contracts_PrimeTransactions_FY2020]\n( \n\t[contract_transaction_unique_key] [nvarchar](max)  NULL,\n\t[contract_award_unique_key] [nvarchar](max)  NULL,\n\t[award_id_piid] [nvarchar](max)  NULL,\n\t[modification_number] [nvarchar](max)  NULL,\n\t[transaction_number] [nvarchar](max)  NULL,\n\t[parent_award_agency_id] [nvarchar](max)  NULL,\n\t[parent_award_agency_name] [nvarchar](max)  NULL,\n\t[parent_award_id_piid] [nvarchar](max)  NULL,\n\t[parent_award_modification_number] [nvarchar](max)  NULL,\n\t[federal_action_obligation] [nvarchar](max)  NULL,\n\t[total_dollars_obligated] [nvarchar](max)  NULL,\n\t[base_and_exercised_options_value] [nvarchar](max)  NULL,\n\t[current_total_value_of_award] [nvarchar](max)  NULL,\n\t[base_and_all_options_value] [nvarchar](max)  NULL,\n\t[potential_total_value_of_award] [nvarchar](max)  NULL,\n\t[disaster_emergency_fund_codes_for_overall_award] [nvarchar](max)  NULL,\n\t[outlayed_amount_funded_by_COVID-19_supplementals_for_overall_aw] [nvarchar](max)  NULL,\n\t[obligated_amount_funded_by_COVID-19_supplementals_for_overall_a] [nvarchar](max)  NULL,\n\t[action_date] [nvarchar](max)  NULL,\n\t[action_date_fiscal_year] [nvarchar](max)  NULL,\n\t[period_of_performance_start_date] [nvarchar](max)  NULL,\n\t[period_of_performance_current_end_date] [nvarchar](max)  NULL,\n\t[period_of_performance_potential_end_date] [nvarchar](max)  NULL,\n\t[ordering_period_end_date] [nvarchar](max)  NULL,\n\t[solicitation_date] [nvarchar](max)  NULL,\n\t[awarding_agency_code] [nvarchar](max)  NULL,\n\t[awarding_agency_name] [nvarchar](max)  NULL,\n\t[awarding_sub_agency_code] [nvarchar](max)  NULL,\n\t[awarding_sub_agency_name] [nvarchar](max)  NULL,\n\t[awarding_office_code] [nvarchar](max)  NULL,\n\t[awarding_office_name] [nvarchar](max)  NULL,\n\t[funding_agency_code] [nvarchar](max)  NULL,\n\t[funding_agency_name] [nvarchar](max)  NULL,\n\t[funding_sub_agency_code] [nvarchar](max)  NULL,\n\t[funding_sub_agency_name] [nvarchar](max)  NULL,\n\t[funding_office_code] [nvarchar](max)  NULL,\n\t[funding_office_name] [nvarchar](max)  NULL,\n\t[treasury_accounts_funding_this_award] [nvarchar](max)  NULL,\n\t[federal_accounts_funding_this_award] [nvarchar](max)  NULL,\n\t[object_classes_funding_this_award] [nvarchar](max)  NULL,\n\t[program_activities_funding_this_award] [nvarchar](max)  NULL,\n\t[foreign_funding] [nvarchar](max)  NULL,\n\t[foreign_funding_description] [nvarchar](max)  NULL,\n\t[sam_exception] [nvarchar](max)  NULL,\n\t[sam_exception_description] [nvarchar](max)  NULL,\n\t[recipient_duns] [nvarchar](max)  NULL,\n\t[recipient_name] [nvarchar](max)  NULL,\n\t[recipient_doing_business_as_name] [nvarchar](max)  NULL,\n\t[cage_code] [nvarchar](max)  NULL,\n\t[recipient_parent_duns] [nvarchar](max)  NULL,\n\t[recipient_parent_name] [nvarchar](max)  NULL,\n\t[recipient_country_code] [nvarchar](max)  NULL,\n\t[recipient_country_name] [nvarchar](max)  NULL,\n\t[recipient_address_line_1] [nvarchar](max)  NULL,\n\t[recipient_address_line_2] [nvarchar](max)  NULL,\n\t[recipient_city_name] [nvarchar](max)  NULL,\n\t[recipient_county_name] [nvarchar](max)  NULL,\n\t[recipient_state_code] [nvarchar](max)  NULL,\n\t[recipient_state_name] [nvarchar](max)  NULL,\n\t[recipient_zip_4_code] [nvarchar](max)  NULL,\n\t[recipient_congressional_district] [nvarchar](max)  NULL,\n\t[recipient_phone_number] [nvarchar](max)  NULL,\n\t[recipient_fax_number] [nvarchar](max)  NULL,\n\t[primary_place_of_performance_country_code] [nvarchar](max)  NULL,\n\t[primary_place_of_performance_country_name] [nvarchar](max)  NULL,\n\t[primary_place_of_performance_city_name] [nvarchar](max)  NULL,\n\t[primary_place_of_performance_county_name] [nvarchar](max)  NULL,\n\t[primary_place_of_performance_state_code] [nvarchar](max)  NULL,\n\t[primary_place_of_performance_state_name] [nvarchar](max)  NULL,\n\t[primary_place_of_performance_zip_4] [nvarchar](max)  NULL,\n\t[primary_place_of_performance_congressional_district] [nvarchar](max)  NULL,\n\t[award_or_idv_flag] [nvarchar](max)  NULL,\n\t[award_type_code] [nvarchar](max)  NULL,\n\t[award_type] [nvarchar](max)  NULL,\n\t[idv_type_code] [nvarchar](max)  NULL,\n\t[idv_type] [nvarchar](max)  NULL,\n\t[multiple_or_single_award_idv_code] [nvarchar](max)  NULL,\n\t[multiple_or_single_award_idv] [nvarchar](max)  NULL,\n\t[type_of_idc_code] [nvarchar](max)  NULL,\n\t[type_of_idc] [nvarchar](max)  NULL,\n\t[type_of_contract_pricing_code] [nvarchar](max)  NULL,\n\t[type_of_contract_pricing] [nvarchar](max)  NULL,\n\t[award_description] [nvarchar](max)  NULL,\n\t[action_type_code] [nvarchar](max)  NULL,\n\t[action_type] [nvarchar](max)  NULL,\n\t[solicitation_identifier] [nvarchar](max)  NULL,\n\t[number_of_actions] [nvarchar](max)  NULL,\n\t[inherently_governmental_functions] [nvarchar](max)  NULL,\n\t[inherently_governmental_functions_description] [nvarchar](max)  NULL,\n\t[product_or_service_code] [nvarchar](max)  NULL,\n\t[product_or_service_code_description] [nvarchar](max)  NULL,\n\t[contract_bundling_code] [nvarchar](max)  NULL,\n\t[contract_bundling] [nvarchar](max)  NULL,\n\t[dod_claimant_program_code] [nvarchar](max)  NULL,\n\t[dod_claimant_program_description] [nvarchar](max)  NULL,\n\t[naics_code] [nvarchar](max)  NULL,\n\t[naics_description] [nvarchar](max)  NULL,\n\t[recovered_materials_sustainability_code] [nvarchar](max)  NULL,\n\t[recovered_materials_sustainability] [nvarchar](max)  NULL,\n\t[domestic_or_foreign_entity_code] [nvarchar](max)  NULL,\n\t[domestic_or_foreign_entity] [nvarchar](max)  NULL,\n\t[dod_acquisition_program_code] [nvarchar](max)  NULL,\n\t[dod_acquisition_program_description] [nvarchar](max)  NULL,\n\t[information_technology_commercial_item_category_code] [nvarchar](max)  NULL,\n\t[information_technology_commercial_item_category] [nvarchar](max)  NULL,\n\t[epa_designated_product_code] [nvarchar](max)  NULL,\n\t[epa_designated_product] [nvarchar](max)  NULL,\n\t[country_of_product_or_service_origin_code] [nvarchar](max)  NULL,\n\t[country_of_product_or_service_origin] [nvarchar](max)  NULL,\n\t[place_of_manufacture_code] [nvarchar](max)  NULL,\n\t[place_of_manufacture] [nvarchar](max)  NULL,\n\t[subcontracting_plan_code] [nvarchar](max)  NULL,\n\t[subcontracting_plan] [nvarchar](max)  NULL,\n\t[extent_competed_code] [nvarchar](max)  NULL,\n\t[extent_competed] [nvarchar](max)  NULL,\n\t[solicitation_procedures_code] [nvarchar](max)  NULL,\n\t[solicitation_procedures] [nvarchar](max)  NULL,\n\t[type_of_set_aside_code] [nvarchar](max)  NULL,\n\t[type_of_set_aside] [nvarchar](max)  NULL,\n\t[evaluated_preference_code] [nvarchar](max)  NULL,\n\t[evaluated_preference] [nvarchar](max)  NULL,\n\t[research_code] [nvarchar](max)  NULL,\n\t[research] [nvarchar](max)  NULL,\n\t[fair_opportunity_limited_sources_code] [nvarchar](max)  NULL,\n\t[fair_opportunity_limited_sources] [nvarchar](max)  NULL,\n\t[other_than_full_and_open_competition_code] [nvarchar](max)  NULL,\n\t[other_than_full_and_open_competition] [nvarchar](max)  NULL,\n\t[number_of_offers_received] [nvarchar](max)  NULL,\n\t[commercial_item_acquisition_procedures_code] [nvarchar](max)  NULL,\n\t[commercial_item_acquisition_procedures] [nvarchar](max)  NULL,\n\t[small_business_competitiveness_demonstration_program] [nvarchar](max)  NULL,\n\t[simplified_procedures_for_certain_commercial_items_code] [nvarchar](max)  NULL,\n\t[simplified_procedures_for_certain_commercial_items] [nvarchar](max)  NULL,\n\t[a76_fair_act_action_code] [nvarchar](max)  NULL,\n\t[a76_fair_act_action] [nvarchar](max)  NULL,\n\t[fed_biz_opps_code] [nvarchar](max)  NULL,\n\t[fed_biz_opps] [nvarchar](max)  NULL,\n\t[local_area_set_aside_code] [nvarchar](max)  NULL,\n\t[local_area_set_aside] [nvarchar](max)  NULL,\n\t[price_evaluation_adjustment_preference_percent_difference] [nvarchar](max)  NULL,\n\t[clinger_cohen_act_planning_code] [nvarchar](max)  NULL,\n\t[clinger_cohen_act_planning] [nvarchar](max)  NULL,\n\t[materials_supplies_articles_equipment_code] [nvarchar](max)  NULL,\n\t[materials_supplies_articles_equipment] [nvarchar](max)  NULL,\n\t[labor_standards_code] [nvarchar](max)  NULL,\n\t[labor_standards] [nvarchar](max)  NULL,\n\t[construction_wage_rate_requirements_code] [nvarchar](max)  NULL,\n\t[construction_wage_rate_requirements] [nvarchar](max)  NULL,\n\t[interagency_contracting_authority_code] [nvarchar](max)  NULL,\n\t[interagency_contracting_authority] [nvarchar](max)  NULL,\n\t[other_statutory_authority] [nvarchar](max)  NULL,\n\t[program_acronym] [nvarchar](max)  NULL,\n\t[parent_award_type_code] [nvarchar](max)  NULL,\n\t[parent_award_type] [nvarchar](max)  NULL,\n\t[parent_award_single_or_multiple_code] [nvarchar](max)  NULL,\n\t[parent_award_single_or_multiple] [nvarchar](max)  NULL,\n\t[major_program] [nvarchar](max)  NULL,\n\t[national_interest_action_code] [nvarchar](max)  NULL,\n\t[national_interest_action] [nvarchar](max)  NULL,\n\t[cost_or_pricing_data_code] [nvarchar](max)  NULL,\n\t[cost_or_pricing_data] [nvarchar](max)  NULL,\n\t[cost_accounting_standards_clause_code] [nvarchar](max)  NULL,\n\t[cost_accounting_standards_clause] [nvarchar](max)  NULL,\n\t[government_furnished_property_code] [nvarchar](max)  NULL,\n\t[government_furnished_property] [nvarchar](max)  NULL,\n\t[sea_transportation_code] [nvarchar](max)  NULL,\n\t[sea_transportation] [nvarchar](max)  NULL,\n\t[undefinitized_action_code] [nvarchar](max)  NULL,\n\t[undefinitized_action] [nvarchar](max)  NULL,\n\t[consolidated_contract_code] [nvarchar](max)  NULL,\n\t[consolidated_contract] [nvarchar](max)  NULL,\n\t[performance_based_service_acquisition_code] [nvarchar](max)  NULL,\n\t[performance_based_service_acquisition] [nvarchar](max)  NULL,\n\t[multi_year_contract_code] [nvarchar](max)  NULL,\n\t[multi_year_contract] [nvarchar](max)  NULL,\n\t[contract_financing_code] [nvarchar](max)  NULL,\n\t[contract_financing] [nvarchar](max)  NULL,\n\t[purchase_card_as_payment_method_code] [nvarchar](max)  NULL,\n\t[purchase_card_as_payment_method] [nvarchar](max)  NULL,\n\t[contingency_humanitarian_or_peacekeeping_operation_code] [nvarchar](max)  NULL,\n\t[contingency_humanitarian_or_peacekeeping_operation] [nvarchar](max)  NULL,\n\t[alaskan_native_corporation_owned_firm] [nvarchar](max)  NULL,\n\t[american_indian_owned_business] [nvarchar](max)  NULL,\n\t[indian_tribe_federally_recognized] [nvarchar](max)  NULL,\n\t[native_hawaiian_organization_owned_firm] [nvarchar](max)  NULL,\n\t[tribally_owned_firm] [nvarchar](max)  NULL,\n\t[veteran_owned_business] [nvarchar](max)  NULL,\n\t[service_disabled_veteran_owned_business] [nvarchar](max)  NULL,\n\t[woman_owned_business] [nvarchar](max)  NULL,\n\t[women_owned_small_business] [nvarchar](max)  NULL,\n\t[economically_disadvantaged_women_owned_small_business] [nvarchar](max)  NULL,\n\t[joint_venture_women_owned_small_business] [nvarchar](max)  NULL,\n\t[joint_venture_economic_disadvantaged_women_owned_small_bus] [nvarchar](max)  NULL,\n\t[minority_owned_business] [nvarchar](max)  NULL,\n\t[subcontinent_asian_asian_indian_american_owned_business] [nvarchar](max)  NULL,\n\t[asian_pacific_american_owned_business] [nvarchar](max)  NULL,\n\t[black_american_owned_business] [nvarchar](max)  NULL,\n\t[hispanic_american_owned_business] [nvarchar](max)  NULL,\n\t[native_american_owned_business] [nvarchar](max)  NULL,\n\t[other_minority_owned_business] [nvarchar](max)  NULL,\n\t[contracting_officers_determination_of_business_size] [nvarchar](max)  NULL,\n\t[contracting_officers_determination_of_business_size_code] [nvarchar](max)  NULL,\n\t[emerging_small_business] [nvarchar](max)  NULL,\n\t[community_developed_corporation_owned_firm] [nvarchar](max)  NULL,\n\t[labor_surplus_area_firm] [nvarchar](max)  NULL,\n\t[us_federal_government] [nvarchar](max)  NULL,\n\t[federally_funded_research_and_development_corp] [nvarchar](max)  NULL,\n\t[federal_agency] [nvarchar](max)  NULL,\n\t[us_state_government] [nvarchar](max)  NULL,\n\t[us_local_government] [nvarchar](max)  NULL,\n\t[city_local_government] [nvarchar](max)  NULL,\n\t[county_local_government] [nvarchar](max)  NULL,\n\t[inter_municipal_local_government] [nvarchar](max)  NULL,\n\t[local_government_owned] [nvarchar](max)  NULL,\n\t[municipality_local_government] [nvarchar](max)  NULL,\n\t[school_district_local_government] [nvarchar](max)  NULL,\n\t[township_local_government] [nvarchar](max)  NULL,\n\t[us_tribal_government] [nvarchar](max)  NULL,\n\t[foreign_government] [nvarchar](max)  NULL,\n\t[organizational_type] [nvarchar](max)  NULL,\n\t[corporate_entity_not_tax_exempt] [nvarchar](max)  NULL,\n\t[corporate_entity_tax_exempt] [nvarchar](max)  NULL,\n\t[partnership_or_limited_liability_partnership] [nvarchar](max)  NULL,\n\t[sole_proprietorship] [nvarchar](max)  NULL,\n\t[small_agricultural_cooperative] [nvarchar](max)  NULL,\n\t[international_organization] [nvarchar](max)  NULL,\n\t[us_government_entity] [nvarchar](max)  NULL,\n\t[community_development_corporation] [nvarchar](max)  NULL,\n\t[domestic_shelter] [nvarchar](max)  NULL,\n\t[educational_institution] [nvarchar](max)  NULL,\n\t[foundation] [nvarchar](max)  NULL,\n\t[hospital_flag] [nvarchar](max)  NULL,\n\t[manufacturer_of_goods] [nvarchar](max)  NULL,\n\t[veterinary_hospital] [nvarchar](max)  NULL,\n\t[hispanic_servicing_institution] [nvarchar](max)  NULL,\n\t[receives_contracts] [nvarchar](max)  NULL,\n\t[receives_financial_assistance] [nvarchar](max)  NULL,\n\t[receives_contracts_and_financial_assistance] [nvarchar](max)  NULL,\n\t[airport_authority] [nvarchar](max)  NULL,\n\t[council_of_governments] [nvarchar](max)  NULL,\n\t[housing_authorities_public_tribal] [nvarchar](max)  NULL,\n\t[interstate_entity] [nvarchar](max)  NULL,\n\t[planning_commission] [nvarchar](max)  NULL,\n\t[port_authority] [nvarchar](max)  NULL,\n\t[transit_authority] [nvarchar](max)  NULL,\n\t[subchapter_scorporation] [nvarchar](max)  NULL,\n\t[limited_liability_corporation] [nvarchar](max)  NULL,\n\t[foreign_owned] [nvarchar](max)  NULL,\n\t[for_profit_organization] [nvarchar](max)  NULL,\n\t[nonprofit_organization] [nvarchar](max)  NULL,\n\t[other_not_for_profit_organization] [nvarchar](max)  NULL,\n\t[the_ability_one_program] [nvarchar](max)  NULL,\n\t[private_university_or_college] [nvarchar](max)  NULL,\n\t[state_controlled_institution_of_higher_learning] [nvarchar](max)  NULL,\n\t[1862_land_grant_college] [nvarchar](max)  NULL,\n\t[1890_land_grant_college] [nvarchar](max)  NULL,\n\t[1994_land_grant_college] [nvarchar](max)  NULL,\n\t[minority_institution] [nvarchar](max)  NULL,\n\t[historically_black_college] [nvarchar](max)  NULL,\n\t[tribal_college] [nvarchar](max)  NULL,\n\t[alaskan_native_servicing_institution] [nvarchar](max)  NULL,\n\t[native_hawaiian_servicing_institution] [nvarchar](max)  NULL,\n\t[school_of_forestry] [nvarchar](max)  NULL,\n\t[veterinary_college] [nvarchar](max)  NULL,\n\t[dot_certified_disadvantage] [nvarchar](max)  NULL,\n\t[self_certified_small_disadvantaged_business] [nvarchar](max)  NULL,\n\t[small_disadvantaged_business] [nvarchar](max)  NULL,\n\t[c8a_program_participant] [nvarchar](max)  NULL,\n\t[historically_underutilized_business_zone_hubzone_firm] [nvarchar](max)  NULL,\n\t[sba_certified_8a_joint_venture] [nvarchar](max)  NULL,\n\t[highly_compensated_officer_1_name] [nvarchar](max)  NULL,\n\t[highly_compensated_officer_1_amount] [nvarchar](max)  NULL,\n\t[highly_compensated_officer_2_name] [nvarchar](max)  NULL,\n\t[highly_compensated_officer_2_amount] [nvarchar](max)  NULL,\n\t[highly_compensated_officer_3_name] [nvarchar](max)  NULL,\n\t[highly_compensated_officer_3_amount] [nvarchar](max)  NULL,\n\t[highly_compensated_officer_4_name] [nvarchar](max)  NULL,\n\t[highly_compensated_officer_4_amount] [nvarchar](max)  NULL,\n\t[highly_compensated_officer_5_name] [nvarchar](max)  NULL,\n\t[highly_compensated_officer_5_amount] [nvarchar](max)  NULL,\n\t[usaspending_permalink] [nvarchar](max)  NULL,\n\t[last_modified_date] [nvarchar](max)  NULL\n)\nWITH\n(\n\tDISTRIBUTION = ROUND_ROBIN,\n\tHEAP\n)\nGO",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "synapse01sqlp",
+						"poolName": "synapse01sqlp"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/create-CREATE TABLE-All_Contracts_PrimeTransactions_FY2021')]",
+			"type": "Microsoft.Synapse/workspaces/sqlscripts",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"content": {
+					"query": "--- drop table [dbo].[All_Contracts_PrimeTransactions_FY2021]\n\nSET ANSI_NULLS ON\nGO\nSET QUOTED_IDENTIFIER ON\nGO\n\nCREATE TABLE [dbo].[All_Contracts_PrimeTransactions_FY2021]\n( \n\t[contract_transaction_unique_key] [nvarchar](max)  NULL,\n\t[contract_award_unique_key] [nvarchar](max)  NULL,\n\t[award_id_piid] [nvarchar](max)  NULL,\n\t[modification_number] [nvarchar](max)  NULL,\n\t[transaction_number] [nvarchar](max)  NULL,\n\t[parent_award_agency_id] [nvarchar](max)  NULL,\n\t[parent_award_agency_name] [nvarchar](max)  NULL,\n\t[parent_award_id_piid] [nvarchar](max)  NULL,\n\t[parent_award_modification_number] [nvarchar](max)  NULL,\n\t[federal_action_obligation] [nvarchar](max)  NULL,\n\t[total_dollars_obligated] [nvarchar](max)  NULL,\n\t[base_and_exercised_options_value] [nvarchar](max)  NULL,\n\t[current_total_value_of_award] [nvarchar](max)  NULL,\n\t[base_and_all_options_value] [nvarchar](max)  NULL,\n\t[potential_total_value_of_award] [nvarchar](max)  NULL,\n\t[disaster_emergency_fund_codes_for_overall_award] [nvarchar](max)  NULL,\n\t[outlayed_amount_funded_by_COVID-19_supplementals_for_overall_aw] [nvarchar](max)  NULL,\n\t[obligated_amount_funded_by_COVID-19_supplementals_for_overall_a] [nvarchar](max)  NULL,\n\t[action_date] [nvarchar](max)  NULL,\n\t[action_date_fiscal_year] [nvarchar](max)  NULL,\n\t[period_of_performance_start_date] [nvarchar](max)  NULL,\n\t[period_of_performance_current_end_date] [nvarchar](max)  NULL,\n\t[period_of_performance_potential_end_date] [nvarchar](max)  NULL,\n\t[ordering_period_end_date] [nvarchar](max)  NULL,\n\t[solicitation_date] [nvarchar](max)  NULL,\n\t[awarding_agency_code] [nvarchar](max)  NULL,\n\t[awarding_agency_name] [nvarchar](max)  NULL,\n\t[awarding_sub_agency_code] [nvarchar](max)  NULL,\n\t[awarding_sub_agency_name] [nvarchar](max)  NULL,\n\t[awarding_office_code] [nvarchar](max)  NULL,\n\t[awarding_office_name] [nvarchar](max)  NULL,\n\t[funding_agency_code] [nvarchar](max)  NULL,\n\t[funding_agency_name] [nvarchar](max)  NULL,\n\t[funding_sub_agency_code] [nvarchar](max)  NULL,\n\t[funding_sub_agency_name] [nvarchar](max)  NULL,\n\t[funding_office_code] [nvarchar](max)  NULL,\n\t[funding_office_name] [nvarchar](max)  NULL,\n\t[treasury_accounts_funding_this_award] [nvarchar](max)  NULL,\n\t[federal_accounts_funding_this_award] [nvarchar](max)  NULL,\n\t[object_classes_funding_this_award] [nvarchar](max)  NULL,\n\t[program_activities_funding_this_award] [nvarchar](max)  NULL,\n\t[foreign_funding] [nvarchar](max)  NULL,\n\t[foreign_funding_description] [nvarchar](max)  NULL,\n\t[sam_exception] [nvarchar](max)  NULL,\n\t[sam_exception_description] [nvarchar](max)  NULL,\n\t[recipient_duns] [nvarchar](max)  NULL,\n\t[recipient_name] [nvarchar](max)  NULL,\n\t[recipient_doing_business_as_name] [nvarchar](max)  NULL,\n\t[cage_code] [nvarchar](max)  NULL,\n\t[recipient_parent_duns] [nvarchar](max)  NULL,\n\t[recipient_parent_name] [nvarchar](max)  NULL,\n\t[recipient_country_code] [nvarchar](max)  NULL,\n\t[recipient_country_name] [nvarchar](max)  NULL,\n\t[recipient_address_line_1] [nvarchar](max)  NULL,\n\t[recipient_address_line_2] [nvarchar](max)  NULL,\n\t[recipient_city_name] [nvarchar](max)  NULL,\n\t[recipient_county_name] [nvarchar](max)  NULL,\n\t[recipient_state_code] [nvarchar](max)  NULL,\n\t[recipient_state_name] [nvarchar](max)  NULL,\n\t[recipient_zip_4_code] [nvarchar](max)  NULL,\n\t[recipient_congressional_district] [nvarchar](max)  NULL,\n\t[recipient_phone_number] [nvarchar](max)  NULL,\n\t[recipient_fax_number] [nvarchar](max)  NULL,\n\t[primary_place_of_performance_country_code] [nvarchar](max)  NULL,\n\t[primary_place_of_performance_country_name] [nvarchar](max)  NULL,\n\t[primary_place_of_performance_city_name] [nvarchar](max)  NULL,\n\t[primary_place_of_performance_county_name] [nvarchar](max)  NULL,\n\t[primary_place_of_performance_state_code] [nvarchar](max)  NULL,\n\t[primary_place_of_performance_state_name] [nvarchar](max)  NULL,\n\t[primary_place_of_performance_zip_4] [nvarchar](max)  NULL,\n\t[primary_place_of_performance_congressional_district] [nvarchar](max)  NULL,\n\t[award_or_idv_flag] [nvarchar](max)  NULL,\n\t[award_type_code] [nvarchar](max)  NULL,\n\t[award_type] [nvarchar](max)  NULL,\n\t[idv_type_code] [nvarchar](max)  NULL,\n\t[idv_type] [nvarchar](max)  NULL,\n\t[multiple_or_single_award_idv_code] [nvarchar](max)  NULL,\n\t[multiple_or_single_award_idv] [nvarchar](max)  NULL,\n\t[type_of_idc_code] [nvarchar](max)  NULL,\n\t[type_of_idc] [nvarchar](max)  NULL,\n\t[type_of_contract_pricing_code] [nvarchar](max)  NULL,\n\t[type_of_contract_pricing] [nvarchar](max)  NULL,\n\t[award_description] [nvarchar](max)  NULL,\n\t[action_type_code] [nvarchar](max)  NULL,\n\t[action_type] [nvarchar](max)  NULL,\n\t[solicitation_identifier] [nvarchar](max)  NULL,\n\t[number_of_actions] [nvarchar](max)  NULL,\n\t[inherently_governmental_functions] [nvarchar](max)  NULL,\n\t[inherently_governmental_functions_description] [nvarchar](max)  NULL,\n\t[product_or_service_code] [nvarchar](max)  NULL,\n\t[product_or_service_code_description] [nvarchar](max)  NULL,\n\t[contract_bundling_code] [nvarchar](max)  NULL,\n\t[contract_bundling] [nvarchar](max)  NULL,\n\t[dod_claimant_program_code] [nvarchar](max)  NULL,\n\t[dod_claimant_program_description] [nvarchar](max)  NULL,\n\t[naics_code] [nvarchar](max)  NULL,\n\t[naics_description] [nvarchar](max)  NULL,\n\t[recovered_materials_sustainability_code] [nvarchar](max)  NULL,\n\t[recovered_materials_sustainability] [nvarchar](max)  NULL,\n\t[domestic_or_foreign_entity_code] [nvarchar](max)  NULL,\n\t[domestic_or_foreign_entity] [nvarchar](max)  NULL,\n\t[dod_acquisition_program_code] [nvarchar](max)  NULL,\n\t[dod_acquisition_program_description] [nvarchar](max)  NULL,\n\t[information_technology_commercial_item_category_code] [nvarchar](max)  NULL,\n\t[information_technology_commercial_item_category] [nvarchar](max)  NULL,\n\t[epa_designated_product_code] [nvarchar](max)  NULL,\n\t[epa_designated_product] [nvarchar](max)  NULL,\n\t[country_of_product_or_service_origin_code] [nvarchar](max)  NULL,\n\t[country_of_product_or_service_origin] [nvarchar](max)  NULL,\n\t[place_of_manufacture_code] [nvarchar](max)  NULL,\n\t[place_of_manufacture] [nvarchar](max)  NULL,\n\t[subcontracting_plan_code] [nvarchar](max)  NULL,\n\t[subcontracting_plan] [nvarchar](max)  NULL,\n\t[extent_competed_code] [nvarchar](max)  NULL,\n\t[extent_competed] [nvarchar](max)  NULL,\n\t[solicitation_procedures_code] [nvarchar](max)  NULL,\n\t[solicitation_procedures] [nvarchar](max)  NULL,\n\t[type_of_set_aside_code] [nvarchar](max)  NULL,\n\t[type_of_set_aside] [nvarchar](max)  NULL,\n\t[evaluated_preference_code] [nvarchar](max)  NULL,\n\t[evaluated_preference] [nvarchar](max)  NULL,\n\t[research_code] [nvarchar](max)  NULL,\n\t[research] [nvarchar](max)  NULL,\n\t[fair_opportunity_limited_sources_code] [nvarchar](max)  NULL,\n\t[fair_opportunity_limited_sources] [nvarchar](max)  NULL,\n\t[other_than_full_and_open_competition_code] [nvarchar](max)  NULL,\n\t[other_than_full_and_open_competition] [nvarchar](max)  NULL,\n\t[number_of_offers_received] [nvarchar](max)  NULL,\n\t[commercial_item_acquisition_procedures_code] [nvarchar](max)  NULL,\n\t[commercial_item_acquisition_procedures] [nvarchar](max)  NULL,\n\t[small_business_competitiveness_demonstration_program] [nvarchar](max)  NULL,\n\t[simplified_procedures_for_certain_commercial_items_code] [nvarchar](max)  NULL,\n\t[simplified_procedures_for_certain_commercial_items] [nvarchar](max)  NULL,\n\t[a76_fair_act_action_code] [nvarchar](max)  NULL,\n\t[a76_fair_act_action] [nvarchar](max)  NULL,\n\t[fed_biz_opps_code] [nvarchar](max)  NULL,\n\t[fed_biz_opps] [nvarchar](max)  NULL,\n\t[local_area_set_aside_code] [nvarchar](max)  NULL,\n\t[local_area_set_aside] [nvarchar](max)  NULL,\n\t[price_evaluation_adjustment_preference_percent_difference] [nvarchar](max)  NULL,\n\t[clinger_cohen_act_planning_code] [nvarchar](max)  NULL,\n\t[clinger_cohen_act_planning] [nvarchar](max)  NULL,\n\t[materials_supplies_articles_equipment_code] [nvarchar](max)  NULL,\n\t[materials_supplies_articles_equipment] [nvarchar](max)  NULL,\n\t[labor_standards_code] [nvarchar](max)  NULL,\n\t[labor_standards] [nvarchar](max)  NULL,\n\t[construction_wage_rate_requirements_code] [nvarchar](max)  NULL,\n\t[construction_wage_rate_requirements] [nvarchar](max)  NULL,\n\t[interagency_contracting_authority_code] [nvarchar](max)  NULL,\n\t[interagency_contracting_authority] [nvarchar](max)  NULL,\n\t[other_statutory_authority] [nvarchar](max)  NULL,\n\t[program_acronym] [nvarchar](max)  NULL,\n\t[parent_award_type_code] [nvarchar](max)  NULL,\n\t[parent_award_type] [nvarchar](max)  NULL,\n\t[parent_award_single_or_multiple_code] [nvarchar](max)  NULL,\n\t[parent_award_single_or_multiple] [nvarchar](max)  NULL,\n\t[major_program] [nvarchar](max)  NULL,\n\t[national_interest_action_code] [nvarchar](max)  NULL,\n\t[national_interest_action] [nvarchar](max)  NULL,\n\t[cost_or_pricing_data_code] [nvarchar](max)  NULL,\n\t[cost_or_pricing_data] [nvarchar](max)  NULL,\n\t[cost_accounting_standards_clause_code] [nvarchar](max)  NULL,\n\t[cost_accounting_standards_clause] [nvarchar](max)  NULL,\n\t[government_furnished_property_code] [nvarchar](max)  NULL,\n\t[government_furnished_property] [nvarchar](max)  NULL,\n\t[sea_transportation_code] [nvarchar](max)  NULL,\n\t[sea_transportation] [nvarchar](max)  NULL,\n\t[undefinitized_action_code] [nvarchar](max)  NULL,\n\t[undefinitized_action] [nvarchar](max)  NULL,\n\t[consolidated_contract_code] [nvarchar](max)  NULL,\n\t[consolidated_contract] [nvarchar](max)  NULL,\n\t[performance_based_service_acquisition_code] [nvarchar](max)  NULL,\n\t[performance_based_service_acquisition] [nvarchar](max)  NULL,\n\t[multi_year_contract_code] [nvarchar](max)  NULL,\n\t[multi_year_contract] [nvarchar](max)  NULL,\n\t[contract_financing_code] [nvarchar](max)  NULL,\n\t[contract_financing] [nvarchar](max)  NULL,\n\t[purchase_card_as_payment_method_code] [nvarchar](max)  NULL,\n\t[purchase_card_as_payment_method] [nvarchar](max)  NULL,\n\t[contingency_humanitarian_or_peacekeeping_operation_code] [nvarchar](max)  NULL,\n\t[contingency_humanitarian_or_peacekeeping_operation] [nvarchar](max)  NULL,\n\t[alaskan_native_corporation_owned_firm] [nvarchar](max)  NULL,\n\t[american_indian_owned_business] [nvarchar](max)  NULL,\n\t[indian_tribe_federally_recognized] [nvarchar](max)  NULL,\n\t[native_hawaiian_organization_owned_firm] [nvarchar](max)  NULL,\n\t[tribally_owned_firm] [nvarchar](max)  NULL,\n\t[veteran_owned_business] [nvarchar](max)  NULL,\n\t[service_disabled_veteran_owned_business] [nvarchar](max)  NULL,\n\t[woman_owned_business] [nvarchar](max)  NULL,\n\t[women_owned_small_business] [nvarchar](max)  NULL,\n\t[economically_disadvantaged_women_owned_small_business] [nvarchar](max)  NULL,\n\t[joint_venture_women_owned_small_business] [nvarchar](max)  NULL,\n\t[joint_venture_economic_disadvantaged_women_owned_small_bus] [nvarchar](max)  NULL,\n\t[minority_owned_business] [nvarchar](max)  NULL,\n\t[subcontinent_asian_asian_indian_american_owned_business] [nvarchar](max)  NULL,\n\t[asian_pacific_american_owned_business] [nvarchar](max)  NULL,\n\t[black_american_owned_business] [nvarchar](max)  NULL,\n\t[hispanic_american_owned_business] [nvarchar](max)  NULL,\n\t[native_american_owned_business] [nvarchar](max)  NULL,\n\t[other_minority_owned_business] [nvarchar](max)  NULL,\n\t[contracting_officers_determination_of_business_size] [nvarchar](max)  NULL,\n\t[contracting_officers_determination_of_business_size_code] [nvarchar](max)  NULL,\n\t[emerging_small_business] [nvarchar](max)  NULL,\n\t[community_developed_corporation_owned_firm] [nvarchar](max)  NULL,\n\t[labor_surplus_area_firm] [nvarchar](max)  NULL,\n\t[us_federal_government] [nvarchar](max)  NULL,\n\t[federally_funded_research_and_development_corp] [nvarchar](max)  NULL,\n\t[federal_agency] [nvarchar](max)  NULL,\n\t[us_state_government] [nvarchar](max)  NULL,\n\t[us_local_government] [nvarchar](max)  NULL,\n\t[city_local_government] [nvarchar](max)  NULL,\n\t[county_local_government] [nvarchar](max)  NULL,\n\t[inter_municipal_local_government] [nvarchar](max)  NULL,\n\t[local_government_owned] [nvarchar](max)  NULL,\n\t[municipality_local_government] [nvarchar](max)  NULL,\n\t[school_district_local_government] [nvarchar](max)  NULL,\n\t[township_local_government] [nvarchar](max)  NULL,\n\t[us_tribal_government] [nvarchar](max)  NULL,\n\t[foreign_government] [nvarchar](max)  NULL,\n\t[organizational_type] [nvarchar](max)  NULL,\n\t[corporate_entity_not_tax_exempt] [nvarchar](max)  NULL,\n\t[corporate_entity_tax_exempt] [nvarchar](max)  NULL,\n\t[partnership_or_limited_liability_partnership] [nvarchar](max)  NULL,\n\t[sole_proprietorship] [nvarchar](max)  NULL,\n\t[small_agricultural_cooperative] [nvarchar](max)  NULL,\n\t[international_organization] [nvarchar](max)  NULL,\n\t[us_government_entity] [nvarchar](max)  NULL,\n\t[community_development_corporation] [nvarchar](max)  NULL,\n\t[domestic_shelter] [nvarchar](max)  NULL,\n\t[educational_institution] [nvarchar](max)  NULL,\n\t[foundation] [nvarchar](max)  NULL,\n\t[hospital_flag] [nvarchar](max)  NULL,\n\t[manufacturer_of_goods] [nvarchar](max)  NULL,\n\t[veterinary_hospital] [nvarchar](max)  NULL,\n\t[hispanic_servicing_institution] [nvarchar](max)  NULL,\n\t[receives_contracts] [nvarchar](max)  NULL,\n\t[receives_financial_assistance] [nvarchar](max)  NULL,\n\t[receives_contracts_and_financial_assistance] [nvarchar](max)  NULL,\n\t[airport_authority] [nvarchar](max)  NULL,\n\t[council_of_governments] [nvarchar](max)  NULL,\n\t[housing_authorities_public_tribal] [nvarchar](max)  NULL,\n\t[interstate_entity] [nvarchar](max)  NULL,\n\t[planning_commission] [nvarchar](max)  NULL,\n\t[port_authority] [nvarchar](max)  NULL,\n\t[transit_authority] [nvarchar](max)  NULL,\n\t[subchapter_scorporation] [nvarchar](max)  NULL,\n\t[limited_liability_corporation] [nvarchar](max)  NULL,\n\t[foreign_owned] [nvarchar](max)  NULL,\n\t[for_profit_organization] [nvarchar](max)  NULL,\n\t[nonprofit_organization] [nvarchar](max)  NULL,\n\t[other_not_for_profit_organization] [nvarchar](max)  NULL,\n\t[the_ability_one_program] [nvarchar](max)  NULL,\n\t[private_university_or_college] [nvarchar](max)  NULL,\n\t[state_controlled_institution_of_higher_learning] [nvarchar](max)  NULL,\n\t[1862_land_grant_college] [nvarchar](max)  NULL,\n\t[1890_land_grant_college] [nvarchar](max)  NULL,\n\t[1994_land_grant_college] [nvarchar](max)  NULL,\n\t[minority_institution] [nvarchar](max)  NULL,\n\t[historically_black_college] [nvarchar](max)  NULL,\n\t[tribal_college] [nvarchar](max)  NULL,\n\t[alaskan_native_servicing_institution] [nvarchar](max)  NULL,\n\t[native_hawaiian_servicing_institution] [nvarchar](max)  NULL,\n\t[school_of_forestry] [nvarchar](max)  NULL,\n\t[veterinary_college] [nvarchar](max)  NULL,\n\t[dot_certified_disadvantage] [nvarchar](max)  NULL,\n\t[self_certified_small_disadvantaged_business] [nvarchar](max)  NULL,\n\t[small_disadvantaged_business] [nvarchar](max)  NULL,\n\t[c8a_program_participant] [nvarchar](max)  NULL,\n\t[historically_underutilized_business_zone_hubzone_firm] [nvarchar](max)  NULL,\n\t[sba_certified_8a_joint_venture] [nvarchar](max)  NULL,\n\t[highly_compensated_officer_1_name] [nvarchar](max)  NULL,\n\t[highly_compensated_officer_1_amount] [nvarchar](max)  NULL,\n\t[highly_compensated_officer_2_name] [nvarchar](max)  NULL,\n\t[highly_compensated_officer_2_amount] [nvarchar](max)  NULL,\n\t[highly_compensated_officer_3_name] [nvarchar](max)  NULL,\n\t[highly_compensated_officer_3_amount] [nvarchar](max)  NULL,\n\t[highly_compensated_officer_4_name] [nvarchar](max)  NULL,\n\t[highly_compensated_officer_4_amount] [nvarchar](max)  NULL,\n\t[highly_compensated_officer_5_name] [nvarchar](max)  NULL,\n\t[highly_compensated_officer_5_amount] [nvarchar](max)  NULL,\n\t[usaspending_permalink] [nvarchar](max)  NULL,\n\t[last_modified_date] [nvarchar](max)  NULL\n)\nWITH\n(\n\tDISTRIBUTION = ROUND_ROBIN,\n\tHEAP\n)\nGO",
+					"metadata": {
+						"language": "sql"
+					},
+					"currentConnection": {
+						"databaseName": "synapse01sqlp",
+						"poolName": "synapse01sqlp"
+					},
+					"resultLimit": 5000
+				},
+				"type": "SqlQuery"
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Bankruptcy Prediction with LightGBM Classifier')]",
+			"type": "Microsoft.Synapse/workspaces/notebooks",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"nbformat": 4,
+				"nbformat_minor": 2,
+				"bigDataPool": {
+					"referenceName": "synaps01sparkp",
+					"type": "BigDataPoolReference"
+				},
+				"sessionProperties": {
+					"driverMemory": "28g",
+					"driverCores": 4,
+					"executorMemory": "28g",
+					"executorCores": 4,
+					"numExecutors": 2,
+					"conf": {
+						"spark.dynamicAllocation.enabled": "false",
+						"spark.dynamicAllocation.minExecutors": "2",
+						"spark.dynamicAllocation.maxExecutors": "2"
+					}
+				},
+				"metadata": {
+					"saveOutput": true,
+					"synapse_widget": {
+						"version": "0.1"
+					},
+					"kernelspec": {
+						"name": "synapse_pyspark",
+						"display_name": "Synapse PySpark"
+					},
+					"language_info": {
+						"name": "python"
+					},
+					"a365ComputeOptions": {
+						"id": "/subscriptions/828966ab-879b-4f3d-ac3c-6a83706eb702/resourceGroups/rg-synapse/providers/Microsoft.Synapse/workspaces/synapse01ws/bigDataPools/synaps01sparkp",
+						"name": "synaps01sparkp",
+						"type": "Spark",
+						"endpoint": "https://synapse01ws.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/synaps01sparkp",
+						"auth": {
+							"type": "AAD",
+							"authResource": "https://dev.azuresynapse.net"
+						},
+						"sparkVersion": "3.1",
+						"nodeCount": 10,
+						"cores": 4,
+						"memory": 28,
+						"extraHeader": null
+					}
+				},
+				"cells": [
+					{
+						"cell_type": "markdown",
+						"source": [
+							"# Bankruptcy Prediction with LightGBM Classifier\r\n",
+							""
+						],
+						"attachments": null
+					},
+					{
+						"cell_type": "markdown",
+						"source": [
+							"## Introduction of LightGBM\n",
+							"[LightGBM](https://github.com/Microsoft/LightGBM) is an open-source, distributed, high-performance gradient boosting framework with following advantages: \n",
+							"-   Composability: LightGBM models can be incorporated into existing\n",
+							"    SparkML Pipelines, and used for batch, streaming, and serving\n",
+							"    workloads.\n",
+							"-   Performance: LightGBM on Spark is 10-30% faster than SparkML on\n",
+							"    the Higgs dataset, and achieves a 15% increase in AUC.  [Parallel\n",
+							"    experiments](https://github.com/Microsoft/LightGBM/blob/master/docs/Experiments.rst#parallel-experiment)\n",
+							"    have verified that LightGBM can achieve a linear speed-up by using\n",
+							"    multiple machines for training in specific settings.\n",
+							"-   Functionality: LightGBM offers a wide array of [tunable\n",
+							"    parameters](https://github.com/Microsoft/LightGBM/blob/master/docs/Parameters.rst),\n",
+							"    that one can use to customize their decision tree system. LightGBM on\n",
+							"    Spark also supports new types of problems such as quantile regression.\n",
+							"-   Cross platform：LightGBM on Spark is available on Spark (Scala) and PySpark (Python).\n",
+							""
+						],
+						"attachments": null
+					},
+					{
+						"cell_type": "markdown",
+						"source": [
+							"\n",
+							"<img src=\"https://mmlspark.blob.core.windows.net/graphics/Documentation/bankruptcy image.png\" width=\"800\" style=\"float: center;\"/>\n",
+							"\n",
+							"In this example, we use LightGBM to build a classification model in order to predict bankruptcy."
+						],
+						"attachments": null
+					},
+					{
+						"cell_type": "markdown",
+						"source": [
+							"## Read dataset\r\n",
+							"\r\n",
+							"Get a sample data of financial statements for 6819 companies, 220 represents bankrupted companies while 6599 firms are not bankrupted. "
+						],
+						"attachments": null
+					},
+					{
+						"cell_type": "code",
+						"source": [
+							"dataset = spark.read.format(\"csv\")\\\n",
+							"  .option(\"header\", True)\\\n",
+							"  .load(\"wasbs://publicwasb@mmlspark.blob.core.windows.net/company_bankruptcy_prediction_data.csv\")"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 1
+					},
+					{
+						"cell_type": "markdown",
+						"metadata": {
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"## Exploratory data\r\n",
+							"\r\n",
+							"Look at the data and evaluate its suitability for use in a model."
+						],
+						"attachments": null
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": false
+						},
+						"source": [
+							"display(dataset.head(5))"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": null
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": true
+						},
+						"source": [
+							"# print dataset size\r\n",
+							"print(\"Total number of records: \" + str(dataset.count()))"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": null
+					},
+					{
+						"cell_type": "code",
+						"source": [
+							"# convert features to double type\n",
+							"from pyspark.sql.functions import col\n",
+							"from pyspark.sql.types import DoubleType\n",
+							"for colName in dataset.columns:\n",
+							"  dataset = dataset.withColumn(colName, col(colName).cast(DoubleType()))\n",
+							"print(\"Schema: \")\n",
+							"dataset.printSchema()"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": null
+					},
+					{
+						"cell_type": "markdown",
+						"metadata": {
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"## Generation of testing and training data sets\r\n",
+							"\r\n",
+							"Simple split, 85% for training and 15% for testing the model. Playing with this ratio may result in different models.\r\n",
+							""
+						],
+						"attachments": null
+					},
+					{
+						"cell_type": "code",
+						"source": [
+							"# Split the dataset into train and test\n",
+							"\n",
+							"train, test = dataset.randomSplit([0.70, 0.30], seed=1)\n",
+							"\n",
+							"# Add featurizer to convert features to vector\n",
+							"\n",
+							"from pyspark.ml.feature import VectorAssembler\n",
+							"feature_cols = dataset.columns[1:]\n",
+							"featurizer = VectorAssembler(\n",
+							"    inputCols=feature_cols,\n",
+							"    outputCol='features'\n",
+							")\n",
+							"train_data = featurizer.transform(train)['Bankrupt?', 'features']\n",
+							"test_data = featurizer.transform(test)['Bankrupt?', 'features']"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": null
+					},
+					{
+						"cell_type": "code",
+						"source": [
+							"# check if the data is unbalanced\r\n",
+							"train_data.groupBy(\"Bankrupt?\").count().show()"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": null
+					},
+					{
+						"cell_type": "markdown",
+						"source": [
+							"## Train the model\r\n",
+							"Train the Classifier model."
+						],
+						"attachments": null
+					},
+					{
+						"cell_type": "code",
+						"source": [
+							"from mmlspark.lightgbm import LightGBMClassifier\n",
+							"\n",
+							"model = LightGBMClassifier(objective=\"binary\", featuresCol=\"features\", labelCol=\"Bankrupt?\", isUnbalance=True)\n",
+							"model = model.fit(train_data)"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": null
+					},
+					{
+						"cell_type": "code",
+						"source": [
+							"from mmlspark.lightgbm import LightGBMClassificationModel\n",
+							"model.saveNativeModel(\"/lgbmcmodel\")\n",
+							"model = LightGBMClassificationModel.loadNativeModelFromFile(\"/lgbmcmodel\")"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": null
+					},
+					{
+						"cell_type": "code",
+						"source": [
+							"print(model.getFeatureImportances())"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": null
+					},
+					{
+						"cell_type": "markdown",
+						"source": [
+							"## Model Performance Evaluation\r\n",
+							"\r\n",
+							"After training the model, we evaluate the performance of the model using the test set."
+						],
+						"attachments": null
+					},
+					{
+						"cell_type": "code",
+						"source": [
+							"predictions = model.transform(test_data)\n",
+							"#predictions.limit(10).toPandas()"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": null
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": true
+						},
+						"source": [
+							"from mmlspark.train import ComputeModelStatistics\r\n",
+							"\r\n",
+							"# Compute model performance metrics\r\n",
+							"metrics = ComputeModelStatistics(evaluationMetric=\"classification\", \r\n",
+							"                                 labelCol=\"prediction\", \r\n",
+							"                                 scoredLabelsCol=\"Bankrupt?\").transform(predictions)\r\n",
+							"metrics.toPandas()"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": null
+					},
+					{
+						"cell_type": "markdown",
+						"metadata": {
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"## Clean up resources\r\n",
+							"To ensure the Spark instance is shut down, end any connected sessions(notebooks). The pool shuts down when the **idle time** specified in the Apache Spark pool is reached. You can also select **stop session** from the status bar at the upper right of the notebook.\r\n",
+							"\r\n",
+							"![stopsession](https://adsnotebookrelease.blob.core.windows.net/adsnotebookrelease/adsnotebook/image/stopsession.png)"
+						],
+						"attachments": null
+					},
+					{
+						"cell_type": "markdown",
+						"metadata": {
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"## Next steps\r\n",
+							"\r\n",
+							"* [Check out Synapse sample notebooks](https://github.com/Azure-Samples/Synapse/tree/main/MachineLearning) \r\n",
+							"* [MMLSpark GitHub Repo](https://github.com/Azure/mmlspark)"
+						],
+						"attachments": null
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/Treasury-MTS-Rcpt-Read-From-ADLS2')]",
+			"type": "Microsoft.Synapse/workspaces/notebooks",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"nbformat": 4,
+				"nbformat_minor": 2,
+				"bigDataPool": {
+					"referenceName": "synaps01sparkp",
+					"type": "BigDataPoolReference"
+				},
+				"sessionProperties": {
+					"driverMemory": "28g",
+					"driverCores": 4,
+					"executorMemory": "28g",
+					"executorCores": 4,
+					"numExecutors": 2,
+					"conf": {
+						"spark.dynamicAllocation.enabled": "false",
+						"spark.dynamicAllocation.minExecutors": "2",
+						"spark.dynamicAllocation.maxExecutors": "2"
+					}
+				},
+				"metadata": {
+					"saveOutput": true,
+					"synapse_widget": {
+						"version": "0.1",
+						"state": {
+							"2425f28d-5cc9-483f-bc54-677f201b2136": {
+								"type": "Synapse.DataFrame",
+								"sync_state": {
+									"table": {
+										"rows": [
+											{
+												"0": "2021-07-31",
+												"1": "null",
+												"2": "47701962",
+												"3": "FY 2020",
+												"4": "null",
+												"5": "null",
+												"6": "null",
+												"7": "1",
+												"8": "1",
+												"9": "1",
+												"10": "10",
+												"11": "S",
+												"12": "SL",
+												"13": "1",
+												"14": "1",
+												"15": "2021",
+												"16": "4",
+												"17": "2021",
+												"18": "3",
+												"19": "07",
+												"20": "31"
+											},
+											{
+												"0": "2021-07-31",
+												"1": "47701962",
+												"2": "47701976",
+												"3": "October",
+												"4": "245520982120.90",
+												"5": "379988361130.71",
+												"6": "134467379009.81",
+												"7": "1",
+												"8": "2",
+												"9": "2",
+												"10": "20",
+												"11": "D",
+												"12": "MTH",
+												"13": "2",
+												"14": "1.1",
+												"15": "2021",
+												"16": "4",
+												"17": "2021",
+												"18": "3",
+												"19": "07",
+												"20": "31"
+											},
+											{
+												"0": "2021-07-31",
+												"1": "47701962",
+												"2": "47701978",
+												"3": "November",
+												"4": "225185415497.28",
+												"5": "434023709954.02",
+												"6": "208838294456.74",
+												"7": "1",
+												"8": "3",
+												"9": "3",
+												"10": "30",
+												"11": "D",
+												"12": "MTH",
+												"13": "2",
+												"14": "1.2",
+												"15": "2021",
+												"16": "4",
+												"17": "2021",
+												"18": "3",
+												"19": "07",
+												"20": "31"
+											},
+											{
+												"0": "2021-07-31",
+												"1": "47701962",
+												"2": "47701984",
+												"3": "December",
+												"4": "335805401484.89",
+												"5": "349091277973.68",
+												"6": "13285876488.79",
+												"7": "1",
+												"8": "4",
+												"9": "4",
+												"10": "40",
+												"11": "D",
+												"12": "MTH",
+												"13": "2",
+												"14": "1.3",
+												"15": "2021",
+												"16": "4",
+												"17": "2021",
+												"18": "3",
+												"19": "07",
+												"20": "31"
+											},
+											{
+												"0": "2021-07-31",
+												"1": "47701962",
+												"2": "47701986",
+												"3": "January",
+												"4": "372287913768.70",
+												"5": "404882870789.11",
+												"6": "32594957020.41",
+												"7": "1",
+												"8": "5",
+												"9": "5",
+												"10": "50",
+												"11": "D",
+												"12": "MTH",
+												"13": "2",
+												"14": "1.4",
+												"15": "2021",
+												"16": "4",
+												"17": "2021",
+												"18": "3",
+												"19": "07",
+												"20": "31"
+											},
+											{
+												"0": "2021-07-31",
+												"1": "47701962",
+												"2": "47701992",
+												"3": "February",
+												"4": "187950539650.05",
+												"5": "423228905223.49",
+												"6": "235278365573.44",
+												"7": "1",
+												"8": "6",
+												"9": "6",
+												"10": "60",
+												"11": "D",
+												"12": "MTH",
+												"13": "2",
+												"14": "1.5",
+												"15": "2021",
+												"16": "4",
+												"17": "2021",
+												"18": "3",
+												"19": "07",
+												"20": "31"
+											},
+											{
+												"0": "2021-07-31",
+												"1": "47701962",
+												"2": "47701994",
+												"3": "March",
+												"4": "236766231531.80",
+												"5": "355754063237.51",
+												"6": "118987831705.71",
+												"7": "1",
+												"8": "7",
+												"9": "7",
+												"10": "70",
+												"11": "D",
+												"12": "MTH",
+												"13": "2",
+												"14": "1.6",
+												"15": "2021",
+												"16": "4",
+												"17": "2021",
+												"18": "3",
+												"19": "07",
+												"20": "31"
+											},
+											{
+												"0": "2021-07-31",
+												"1": "47701962",
+												"2": "47702000",
+												"3": "April",
+												"4": "241863008315.92",
+												"5": "979885188729.59",
+												"6": "738022180413.67",
+												"7": "1",
+												"8": "8",
+												"9": "8",
+												"10": "80",
+												"11": "D",
+												"12": "MTH",
+												"13": "2",
+												"14": "1.7",
+												"15": "2021",
+												"16": "4",
+												"17": "2021",
+												"18": "3",
+												"19": "07",
+												"20": "31"
+											},
+											{
+												"0": "2021-07-31",
+												"1": "47701962",
+												"2": "47702002",
+												"3": "May",
+												"4": "173860556938.57",
+												"5": "572614424728.25",
+												"6": "398753867789.68",
+												"7": "1",
+												"8": "9",
+												"9": "9",
+												"10": "90",
+												"11": "D",
+												"12": "MTH",
+												"13": "2",
+												"14": "1.8",
+												"15": "2021",
+												"16": "4",
+												"17": "2021",
+												"18": "3",
+												"19": "07",
+												"20": "31"
+											},
+											{
+												"0": "2021-07-31",
+												"1": "47701962",
+												"2": "47702008",
+												"3": "June",
+												"4": "240828668352.71",
+												"5": "1104902736844.42",
+												"6": "864074068491.71",
+												"7": "1",
+												"8": "10",
+												"9": "10",
+												"10": "100",
+												"11": "D",
+												"12": "MTH",
+												"13": "2",
+												"14": "1.9",
+												"15": "2021",
+												"16": "4",
+												"17": "2021",
+												"18": "3",
+												"19": "07",
+												"20": "31"
+											}
+										],
+										"schema": [
+											{
+												"key": "0",
+												"name": "Record Date",
+												"type": "string"
+											},
+											{
+												"key": "1",
+												"name": "Parent ID",
+												"type": "string"
+											},
+											{
+												"key": "2",
+												"name": "Classification ID",
+												"type": "string"
+											},
+											{
+												"key": "3",
+												"name": "Classification Description",
+												"type": "string"
+											},
+											{
+												"key": "4",
+												"name": "Current Month Gross Receipts Amount",
+												"type": "string"
+											},
+											{
+												"key": "5",
+												"name": "Current Month Gross Outlay Amount",
+												"type": "string"
+											},
+											{
+												"key": "6",
+												"name": "Current Month Deficit Surplus Amount",
+												"type": "string"
+											},
+											{
+												"key": "7",
+												"name": "Table Number",
+												"type": "string"
+											},
+											{
+												"key": "8",
+												"name": "Source Line Number",
+												"type": "string"
+											},
+											{
+												"key": "9",
+												"name": "Print Order Sequence Number",
+												"type": "string"
+											},
+											{
+												"key": "10",
+												"name": "Line Code Number",
+												"type": "string"
+											},
+											{
+												"key": "11",
+												"name": "Data Type Code",
+												"type": "string"
+											},
+											{
+												"key": "12",
+												"name": "Record Type Code",
+												"type": "string"
+											},
+											{
+												"key": "13",
+												"name": "Sequence Level Number",
+												"type": "string"
+											},
+											{
+												"key": "14",
+												"name": "Sequence Number Code",
+												"type": "string"
+											},
+											{
+												"key": "15",
+												"name": "Fiscal Year",
+												"type": "string"
+											},
+											{
+												"key": "16",
+												"name": "Fiscal Quarter Number",
+												"type": "string"
+											},
+											{
+												"key": "17",
+												"name": "Calendar Year",
+												"type": "string"
+											},
+											{
+												"key": "18",
+												"name": "Calendar Quarter Number",
+												"type": "string"
+											},
+											{
+												"key": "19",
+												"name": "Calendar Month Number",
+												"type": "string"
+											},
+											{
+												"key": "20",
+												"name": "Calendar Day Number",
+												"type": "string"
+											}
+										]
+									},
+									"isSummary": false,
+									"language": "scala"
+								},
+								"persist_state": {
+									"view": {
+										"type": "details",
+										"chartOptions": {
+											"chartType": "bar",
+											"aggregationType": "count",
+											"categoryFieldKeys": [
+												"0"
+											],
+											"seriesFieldKeys": [
+												"0"
+											],
+											"isStacked": false
+										}
+									}
+								}
+							}
+						}
+					},
+					"kernelspec": {
+						"name": "synapse_pyspark",
+						"display_name": "Synapse PySpark"
+					},
+					"language_info": {
+						"name": "python"
+					},
+					"a365ComputeOptions": {
+						"id": "/subscriptions/828966ab-879b-4f3d-ac3c-6a83706eb702/resourceGroups/rg-synapse/providers/Microsoft.Synapse/workspaces/synapse01ws/bigDataPools/synaps01sparkp",
+						"name": "synaps01sparkp",
+						"type": "Spark",
+						"endpoint": "https://synapse01ws.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/synaps01sparkp",
+						"auth": {
+							"type": "AAD",
+							"authResource": "https://dev.azuresynapse.net"
+						},
+						"sparkVersion": "3.1",
+						"nodeCount": 10,
+						"cores": 4,
+						"memory": 28,
+						"extraHeader": null
+					}
+				},
+				"cells": [
+					{
+						"cell_type": "code",
+						"metadata": {
+							"microsoft": {
+								"language": "python"
+							},
+							"collapsed": false
+						},
+						"source": [
+							"%%pyspark\r\n",
+							"df = spark.read.load('abfss://synapse01fs@synapse01adl.dfs.core.windows.net/raw/Treasury/MTS_RcptOutlyDfctSur_20160731_20210731.csv', format='csv'\r\n",
+							"## If header exists uncomment line below\r\n",
+							", header=True\r\n",
+							")\r\n",
+							"display(df.limit(10))"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 2
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/dimMovies')]",
+			"type": "Microsoft.Synapse/workspaces/notebooks",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"nbformat": 0,
+				"nbformat_minor": 0,
+				"bigDataPool": {
+					"referenceName": "synaps01sparkp",
+					"type": "BigDataPoolReference"
+				},
+				"sessionProperties": {
+					"driverMemory": "28g",
+					"driverCores": 4,
+					"executorMemory": "28g",
+					"executorCores": 4,
+					"numExecutors": 2,
+					"conf": {
+						"spark.dynamicAllocation.enabled": "false",
+						"spark.dynamicAllocation.minExecutors": "2",
+						"spark.dynamicAllocation.maxExecutors": "2"
+					}
+				},
+				"metadata": {
+					"saveOutput": true,
+					"synapse_widget": {
+						"version": "0.1"
+					},
+					"kernelspec": {
+						"name": "synapse_pyspark",
+						"display_name": "Synapse PySpark"
+					},
+					"language_info": {
+						"name": "python"
+					},
+					"a365ComputeOptions": {
+						"id": "/subscriptions/828966ab-879b-4f3d-ac3c-6a83706eb702/resourceGroups/rg-synapse/providers/Microsoft.Synapse/workspaces/synapse01ws/bigDataPools/synaps01sparkp",
+						"name": "synaps01sparkp",
+						"type": "Spark",
+						"endpoint": "https://synapse01ws.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/synaps01sparkp",
+						"auth": {
+							"type": "AAD",
+							"authResource": "https://dev.azuresynapse.net"
+						},
+						"sparkVersion": "3.1",
+						"nodeCount": 10,
+						"cores": 4,
+						"memory": 28,
+						"extraHeader": null
+					}
+				},
+				"cells": [
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": true
+						},
+						"source": [
+							"import pandas as pd"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 1
+					},
+					{
+						"cell_type": "code",
+						"source": [
+							"# Read in movies csv from fourth coffee\r\n",
+							"#data_path = spark.read.load('abfss://srh@southridgeadl01.dfs.core.windows.net/raw/fourth-coffee/Movies.csv', format='csv', header=True)\r\n",
+							"data_path = spark.read.load('abfss://synapse01fs@synapse01adl.dfs.core.windows.net/raw/fourth-coffee/Movies.csv', format='csv', header=True)\r\n",
+							"\r\n",
+							"fourth_coffee_df = data_path.toPandas()\r\n",
+							"fourth_coffee_df['DataSource'] = 'Fourth Coffee'\r\n",
+							"fourth_coffee_df.head()"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 35
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": true
+						},
+						"source": [
+							"# Read in movies csv from van arsdel\r\n",
+							"data_path = spark.read.load('abfss://synapse01fs@synapse01adl.dfs.core.windows.net/raw/van-arsdel/dboMovies.csv', format='csv', header=True)\r\n",
+							"\r\n",
+							"van_arsdel_df = data_path.toPandas()\r\n",
+							"van_arsdel_df['DataSource'] = 'Van Arsdel'\r\n",
+							"van_arsdel_df.head()"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 36
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": true
+						},
+						"source": [
+							"# Read in movies csv from van arsdel\r\n",
+							"data_path = spark.read.load('abfss://synapse01fs@synapse01adl.dfs.core.windows.net/raw/cosmodb/movies.csv', format='csv', header=True)\r\n",
+							"\r\n",
+							"cosmos_df = data_path.toPandas()\r\n",
+							"cosmos_df['DataSource'] = 'Southridge'\r\n",
+							"cosmos_df.head()"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 37
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": true
+						},
+						"source": [
+							"movies_df1 = fourth_coffee_df.append(van_arsdel_df, sort=False)\r\n",
+							"movies_df = movies_df1.append(cosmos_df, sort=False)\r\n",
+							"movies_df['Category'] = movies_df['Category'].fillna(movies_df['genre'])\r\n",
+							"movies_df['Rating'] = movies_df['Rating'].fillna(movies_df['rating'])\r\n",
+							"movies_df['RunTimeMin'] = movies_df['RunTimeMin'].fillna(movies_df['runtime'])\r\n",
+							"movies_df['MovieTitle'] = movies_df['MovieTitle'].fillna(movies_df['title'])\r\n",
+							"movies_df['MovieID'] = movies_df['MovieID'].fillna(movies_df['id'])\r\n",
+							"movies_df['Rating'] = movies_df['Rating'].replace('PG=13','PG-13')\r\n",
+							"movies_df.head()"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 38
+					},
+					{
+						"cell_type": "markdown",
+						"metadata": {
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"# Create Categories Dimension Table"
+						],
+						"attachments": null
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": true
+						},
+						"source": [
+							"categories_df_dedupe = movies_df[['Category']].drop_duplicates()\r\n",
+							"len(categories_df_dedupe)"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 39
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": true
+						},
+						"source": [
+							"categories_df_dedupe = categories_df_dedupe.reset_index(drop=True).reset_index()\r\n",
+							"categories_df_dedupe.head(10)"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 40
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": true
+						},
+						"source": [
+							"categories_sparkdf = spark.createDataFrame(categories_df_dedupe)\r\n",
+							"categories_sparkdf = categories_sparkdf.coalesce(1)\r\n",
+							"categories_sparkdf.write.option(\"header\",\"true\").mode(\"OVERWRITE\").csv('abfss://synapse01fs@synapse01adl.dfs.core.windows.net/conformed/Categories')\r\n",
+							""
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 41
+					},
+					{
+						"cell_type": "markdown",
+						"metadata": {
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"# Create Ratings Dimension Table"
+						],
+						"attachments": null
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": true
+						},
+						"source": [
+							"ratings_df_dedupe = movies_df[['Rating']].drop_duplicates()\r\n",
+							"len(ratings_df_dedupe)"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 42
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": true
+						},
+						"source": [
+							"ratings_df_dedupe = ratings_df_dedupe.reset_index(drop=True).reset_index()\r\n",
+							"ratings_df_dedupe.head()"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 43
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": true
+						},
+						"source": [
+							"ratings_sparkdf = spark.createDataFrame(ratings_df_dedupe)\r\n",
+							"ratings_sparkdf = ratings_sparkdf.coalesce(1)\r\n",
+							"ratings_sparkdf.write.option(\"header\",\"true\").mode(\"OVERWRITE\").csv('abfss://synapse01fs@synapse01adl.dfs.core.windows.net/conformed/Ratings')"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 44
+					},
+					{
+						"cell_type": "markdown",
+						"metadata": {
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							}
+						},
+						"source": [
+							"# Create Movies Dimension Table"
+						],
+						"attachments": null
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": true
+						},
+						"source": [
+							"print (len(fourth_coffee_df))\r\n",
+							"print (len(van_arsdel_df))\r\n",
+							"print (len(cosmos_df))\r\n",
+							"print (len(movies_df))"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 45
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": true
+						},
+						"source": [
+							"movies_df_dedupe = movies_df[['MovieID','MovieTitle','Category','Rating','RunTimeMin']].drop_duplicates()\r\n",
+							"print(len(movies_df_dedupe))"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 46
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": true
+						},
+						"source": [
+							"movies_df_dedupe.isnull().sum()"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 47
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": true
+						},
+						"source": [
+							"movies_df_dedupe.head()"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 48
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": true
+						},
+						"source": [
+							"movies_df_dedupe = movies_df_dedupe.reset_index()"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 49
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": true
+						},
+						"source": [
+							"movies_df_dedupe.head()"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 50
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": true
+						},
+						"source": [
+							"movies_df_dedupe_sk = pd.merge(movies_df_dedupe, categories_df_dedupe, on='Category', how='left')\r\n",
+							"movies_df_dedupe_sk = movies_df_dedupe_sk.drop('Category', axis=1)\r\n",
+							"movies_df_dedupe_sk = movies_df_dedupe_sk.rename(columns={'index_y':'MovieCategorySK'})\r\n",
+							"movies_df_dedupe_sk.head()"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 51
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": true
+						},
+						"source": [
+							"movies_df_dedupe_sk = pd.merge(movies_df_dedupe_sk, ratings_df_dedupe, on='Rating', how='left')\r\n",
+							"movies_df_dedupe_sk = movies_df_dedupe_sk.drop('Rating', axis=1)\r\n",
+							"movies_df_dedupe_sk = movies_df_dedupe_sk.rename(columns={'index':'MovieRatingSK'})\r\n",
+							"movies_df_dedupe_sk = movies_df_dedupe_sk.rename(columns={'index_x':'MovieSK'})\r\n",
+							"movies_df_dedupe_sk.head()"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 52
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": true
+						},
+						"source": [
+							"movies_df_dedupe_sk['MovieSK'] = movies_df_dedupe_sk['MovieSK'].astype(int)\r\n",
+							"movies_df_dedupe_sk['MovieID'] = movies_df_dedupe_sk['MovieID'].astype(str)\r\n",
+							"movies_df_dedupe_sk['MovieTitle'] = movies_df_dedupe_sk['MovieTitle'].astype(str)\r\n",
+							"movies_df_dedupe_sk['MovieCategorySK'] = movies_df_dedupe_sk['MovieCategorySK'].astype(int)\r\n",
+							"movies_df_dedupe_sk['MovieRatingSK'] = movies_df_dedupe_sk['MovieRatingSK'].astype(int)\r\n",
+							"movies_df_dedupe_sk['RunTimeMin'] = movies_df_dedupe_sk['RunTimeMin'].astype(float)"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 53
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": true
+						},
+						"source": [
+							"movies_sparkdf = spark.createDataFrame(movies_df_dedupe_sk) "
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 54
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": true
+						},
+						"source": [
+							"movies_sparkdf = movies_sparkdf.coalesce(1)"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 55
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": true
+						},
+						"source": [
+							"movies_sparkdf.write.option(\"header\",\"true\").mode(\"OVERWRITE\").csv('abfss://synapse01fs@synapse01adl.dfs.core.windows.net/conformed/Movies')"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 56
+					},
+					{
+						"cell_type": "code",
+						"metadata": {
+							"jupyter": {
+								"source_hidden": false,
+								"outputs_hidden": false
+							},
+							"nteract": {
+								"transient": {
+									"deleting": false
+								}
+							},
+							"collapsed": true
+						},
+						"source": [
+							"#categories_sparkdf.write.mode(\"OVERWRITE\").csv('abfss://synapse01fs@synapse01adl.dfs.core.windows.net/Categories')"
+						],
+						"attachments": null,
+						"outputs": [],
+						"execution_count": 57
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/synapse01sqlp')]",
+			"type": "Microsoft.Synapse/workspaces/sqlPools",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"collation": "SQL_Latin1_General_CP1_CI_AS",
+				"maxSizeBytes": 263882790666240,
+				"restorePointInTime": "0001-01-01T00:00:00",
+				"annotations": []
+			},
+			"dependsOn": [],
+			"location": "eastus"
+		}
+	]
+}

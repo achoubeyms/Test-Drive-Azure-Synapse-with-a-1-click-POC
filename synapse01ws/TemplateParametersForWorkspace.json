@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"workspaceName": {
+			"value": "synapse01ws"
+		},
+		"AzureBlobStorageMovie_connectionString": {
+			"value": ""
+		},
+		"SyapseDedicatedSqlPool_connectionString": {
+			"value": ""
+		},
+		"linkedService1_accountKey": {
+			"value": ""
+		},
+		"synapse01ws-WorkspaceDefaultSqlServer_connectionString": {
+			"value": ""
+		},
+		"AzureBlobFSSourceDatasetEntity_properties_typeProperties_fileName": {
+			"value": "All_Contracts_PrimeTransactions_FY2020.csv"
+		},
+		"AzureBlobFSSourceDatasetEntity_properties_typeProperties_folderPath": {
+			"value": "synapse01fs/raw/Treasury/inputs"
+		},
+		"Cp_Http_Lego_Files_properties_typeProperties_url": {
+			"value": "https://cdn.rebrickable.com/media/downloads/"
+		},
+		"Http_Treasury_Data_properties_typeProperties_url": {
+			"value": "https://www.dol.gov/sites/dolgov/files/ETA/naws/"
+		},
+		"linkedService1_properties_typeProperties_url": {
+			"value": "https://sald2ajnuf53ogg.dfs.core.windows.net"
+		},
+		"synapse01ws-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://synapse01adl.dfs.core.windows.net"
+		}
+	}
+}
